@@ -7,17 +7,18 @@ import 'package:after_layout/after_layout.dart';
 import 'package:one_to_math/const.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class MathSettings extends StatefulWidget {
-  MathSettings({this.title});
+class MathQustions extends StatefulWidget {
+  MathQustions({this.title});
 
   final String title;
+  static const String id = 'math_qustions';
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MathSettings>
-    with AfterLayoutMixin<MathSettings> {
+class _MyHomePageState extends State<MathQustions>
+    with AfterLayoutMixin<MathQustions> {
   final answerTextController = TextEditingController();
   String userAnswer;
   bool userInput = false;
