@@ -10,7 +10,7 @@ const KmathButtonTextStyle = TextStyle(
   fontWeight: FontWeight.w200,
 );
 const KAppBarText = 'עומר לומדת חשבון';
-const KNewQustion = Icon(
+const KNewQustionIcon = Icon(
   FontAwesomeIcons.magic,
   size: 35.0,
 );

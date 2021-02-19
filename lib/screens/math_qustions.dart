@@ -22,13 +22,17 @@ class _MyHomePageState extends State<MathQustions>
     with AfterLayoutMixin<MathQustions> {
   final answerTextController = TextEditingController();
   String userAnswer;
-  bool userInput = false;
 
+  bool userInput = false;
+  int scoreKeeper = 0;
   //alert Dialog for: approve see ansewr/ wrong answer/ right answer/ see answer
-  void checkAnsewr(int userAnswer, bool userInput) {
+  void checkAnsewr(int userAnswer, bool checkInput) {
     if (userAnswer ==
             Provider.of<MathBrain>(context, listen: false).questionResult &&
-        userInput) {
+        checkInput) {
+      setState(() {
+        scoreKeeper++;
+      });
       Alert(
         context: context,
         type: AlertType.success,
@@ -39,10 +43,14 @@ class _MyHomePageState extends State<MathQustions>
         style: AlertStyle(descStyle: KmathStyle, titleStyle: KmathStyle),
         buttons: [
           DialogButton(
-            child: KNewQustion,
+            child: KNewQustionIcon,
             onPressed: () {
               Navigator.pop(context);
               Provider.of<MathBrain>(context, listen: false).getQustion();
+              setState(() {
+                userInput = false;
+                userAnswer = null;
+              });
             },
             width: 150,
             color: Colors.black45,
@@ -51,7 +59,7 @@ class _MyHomePageState extends State<MathQustions>
       ).show();
     } else if (userAnswer !=
             Provider.of<MathBrain>(context, listen: false).questionResult &&
-        userInput) {
+        checkInput) {
       Fluttertoast.showToast(
           msg: "תשובה לא נכונה, נסי/ה שנית",
           toastLength: Toast.LENGTH_SHORT,
@@ -60,7 +68,7 @@ class _MyHomePageState extends State<MathQustions>
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
-    } else if (!userInput) {
+    } else if (!checkInput) {
       Alert(
         context: context,
         type: AlertType.none,
@@ -101,10 +109,13 @@ class _MyHomePageState extends State<MathQustions>
       style: AlertStyle(descStyle: KmathStyle, titleStyle: KmathStyle),
       buttons: [
         DialogButton(
-          child: KNewQustion,
+          child: KNewQustionIcon,
           onPressed: () {
             Navigator.pop(context);
             Provider.of<MathBrain>(context, listen: false).getQustion();
+            setState(() {
+              scoreKeeper = 0;
+            });
           },
           width: 150,
           color: Colors.black45,
@@ -125,12 +136,17 @@ class _MyHomePageState extends State<MathQustions>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Column(
+                  children: [
+                    Text('Correct Answers in a Row: ${scoreKeeper.toString()}'),
+                  ],
+                ),
                 SizedBox(
                   height: 30.0,
                 ),
                 FlatButton(
                   onPressed: mathBrain.getQustion,
-                  child: KNewQustion,
+                  child: KNewQustionIcon,
                   color: Colors.blue,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
@@ -211,17 +227,20 @@ class _MyHomePageState extends State<MathQustions>
                   onPressed: () {
                     var intAnswer;
                     //The user picked true.
-                    if (userAnswer == null || userAnswer == "") {
+                    if (answerTextController.text == null ||
+                        answerTextController.text == "") {
                       intAnswer = 1;
+                      userInput = false;
                     } else {
-                      intAnswer = int.parse(userAnswer);
+                      intAnswer = int.parse(answerTextController.text);
                       userInput = true;
                     }
                     checkAnsewr(
-                        intAnswer == null || userAnswer == "" ? 0 : intAnswer,
+                        intAnswer == null || answerTextController.text == ""
+                            ? 0
+                            : intAnswer,
                         userInput);
                     answerTextController.clear();
-                    userInput = false;
                   },
                 ),
               ],
