@@ -17,6 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 
 ## Dev info
+### Done:
 ### in progress:
  - pluse minus qustions 
 ### need to add:

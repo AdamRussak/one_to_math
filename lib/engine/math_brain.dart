@@ -12,16 +12,22 @@ class MathBrain extends ChangeNotifier {
 
 //new Math Question
   void getQustion() {
-    getRandomInt();
     getRandomBool();
+    getRandomInt();
     getResult();
     notifyListeners();
   }
 
   //random number
   void getRandomInt() {
-    randomNumber1 = random.nextInt(maxNumber);
-    randomNumber2 = random.nextInt(maxNumber - randomNumber1);
+    if (randomBoolean) {
+      randomNumber1 = random.nextInt(maxNumber);
+      randomNumber2 = random.nextInt(maxNumber - randomNumber1);
+    } else {
+      randomNumber1 = random.nextInt(maxNumber);
+      randomNumber2 = randomNumber1 == 0 ? 0 : random.nextInt(randomNumber1);
+    }
+
     notifyListeners();
   }
 

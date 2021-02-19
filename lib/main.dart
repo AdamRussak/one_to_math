@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MathBrain(),
       child: MaterialApp(
-        title: 'one_to_math',
+        title: 'עומר לומדת חשבון',
         theme: ThemeData.dark(),
-        home: MathSettings(title: '1 To Math Home Page'),
+        home: MathSettings(title: 'עומר לומדת חשבון'),
       ),
     );
   }
