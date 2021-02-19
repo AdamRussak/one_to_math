@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:one_to_math/screens/math_qustions.dart';
 import 'package:one_to_math/screens/settings_screen.dart';
 import 'package:one_to_math/screens/who_is_bigger_screen.dart';
+import 'package:one_to_math/widgets/sizebox.dart';
 
 class MathStartScreen extends StatefulWidget {
   MathStartScreen({this.title});
@@ -32,7 +33,8 @@ class _MathStartScreen extends State<MathStartScreen> {
                 iconSize: 40.0,
                 icon: Icon(FontAwesomeIcons.wrench),
                 onPressed: () {
-                  Navigator.pushNamed(context, SettingsScreen.id);
+                  //page not active yet
+                  // Navigator.pushNamed(context, SettingsScreen.id);
                 },
               ),
               SizedBox(
@@ -43,7 +45,7 @@ class _MathStartScreen extends State<MathStartScreen> {
               height: 30.0,
             ),
             FlatButton(
-              child: Text('תרגילי חיבור וחיסור'),
+              child: ButtonIcons(FontAwesomeIcons.minus, FontAwesomeIcons.plus),
               color: Colors.blue[300],
               onPressed: () {
                 Navigator.pushNamed(context, MathQustions.id);
@@ -55,10 +57,12 @@ class _MathStartScreen extends State<MathStartScreen> {
               height: 30.0,
             ),
             FlatButton(
-              child: Text('?מי גדול יותר'),
+              child: ButtonIcons(
+                  FontAwesomeIcons.greaterThan, FontAwesomeIcons.lessThan),
               color: Colors.blue[300],
               onPressed: () {
-                Navigator.pushNamed(context, WhoIsBiggerScreen.id);
+                //page not active yet
+                // Navigator.pushNamed(context, WhoIsBiggerScreen.id);
               },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),

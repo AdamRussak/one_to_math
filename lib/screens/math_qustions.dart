@@ -73,7 +73,6 @@ class _MyHomePageState extends State<MathQustions>
             onPressed: () {
               Navigator.pop(context);
               showAnswer();
-              // checkAnsewr(0, false, true);
             },
             width: 150,
             color: Colors.black45,
@@ -137,7 +136,7 @@ class _MyHomePageState extends State<MathQustions>
                       borderRadius: BorderRadius.circular(10)),
                 ),
                 SizedBox(
-                  height: 100.0,
+                  height: 50.0,
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Text(
@@ -146,28 +145,20 @@ class _MyHomePageState extends State<MathQustions>
                         : "",
                     style: KmathStyle,
                   ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
+                  KSizeBoxMath10,
                   Icon(mathBrain.randomBoolean
                       ? FontAwesomeIcons.plus
                       : FontAwesomeIcons.minus),
-                  SizedBox(
-                    width: 10.0,
-                  ),
+                  KSizeBoxMath10,
                   Text(
                     mathBrain.randomNumber2 != null
                         ? mathBrain.randomNumber2.toString()
                         : "",
                     style: KmathStyle,
                   ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
+                  KSizeBoxMath10,
                   Icon(FontAwesomeIcons.equals),
-                  SizedBox(
-                    width: 10.0,
-                  ),
+                  KSizeBoxMath10,
                   SizedBox(
                     width: 65,
                     child: TextField(
@@ -179,7 +170,7 @@ class _MyHomePageState extends State<MathQustions>
                       maxLengthEnforced: true,
                       enabled: mathBrain.questionResult == null ? false : true,
                       style: TextStyle(
-                          color: Colors.black, fontSize: 35, height: 1.2),
+                          color: Colors.black, fontSize: 35, height: 2),
                       decoration: InputDecoration(
                           isDense: true,
                           contentPadding: EdgeInsets.all(4),

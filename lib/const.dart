@@ -14,3 +14,6 @@ const KNewQustion = Icon(
   FontAwesomeIcons.magic,
   size: 35.0,
 );
+const KSizeBoxMath10 = SizedBox(
+  width: 10.0,
+);
