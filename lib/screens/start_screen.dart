@@ -61,8 +61,7 @@ class _MathStartScreen extends State<MathStartScreen> {
                   FontAwesomeIcons.greaterThan, FontAwesomeIcons.lessThan),
               color: Colors.blue[300],
               onPressed: () {
-                //page not active yet
-                // Navigator.pushNamed(context, WhoIsBiggerScreen.id);
+                Navigator.pushNamed(context, WhoIsBiggerScreen.id);
               },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),

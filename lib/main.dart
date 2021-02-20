@@ -3,7 +3,7 @@ import 'package:one_to_math/engine/math_brain.dart';
 import 'package:one_to_math/screens/settings_screen.dart';
 import 'package:one_to_math/screens/who_is_bigger_screen.dart';
 import 'package:provider/provider.dart';
-import 'const.dart';
+import 'const_enums.dart';
 import 'screens/math_qustions.dart';
 import 'screens/start_screen.dart';
 

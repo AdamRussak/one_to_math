@@ -17,3 +17,10 @@ const KNewQustionIcon = Icon(
 const KSizeBoxMath10 = SizedBox(
   width: 10.0,
 );
+
+enum Answer {
+  equal,
+  left,
+  right,
+  pass,
+}

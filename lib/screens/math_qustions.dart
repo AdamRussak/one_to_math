@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:one_to_math/engine/math_brain.dart';
 import 'package:one_to_math/engine/saved_info.dart';
+import 'package:one_to_math/widgets/result_counter.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:after_layout/after_layout.dart';
-import 'package:one_to_math/const.dart';
+import 'package:one_to_math/const_enums.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class MathQustions extends StatefulWidget {
@@ -26,12 +27,15 @@ class _MyHomePageState extends State<MathQustions>
 
   bool userInput = false;
   int scoreKeeper = 0;
-  int sucessInt = 0;
+  int sucessInt;
   //alert Dialog for: approve see ansewr/ wrong answer/ right answer/ see answer
   //init the SharedPref
   SavedInfo savedInfo = SavedInfo();
-  void tapIntoSavedInfo() {
-    savedInfo.initSharedPrefs();
+  void tapIntoSavedInfo() async {
+    await savedInfo.initSharedPrefs();
+    setState(() {
+      sucessInt = savedInfo.prefs.getInt('prefMathCount');
+    });
   }
 
   void checkAnsewr(int userAnswer, bool checkInput) {
@@ -58,7 +62,7 @@ class _MyHomePageState extends State<MathQustions>
             child: KNewQustionIcon,
             onPressed: () {
               Navigator.pop(context);
-              Provider.of<MathBrain>(context, listen: false).getQustion();
+              Provider.of<MathBrain>(context, listen: false).getMathQustion();
               setState(() {
                 userInput = false;
                 userAnswer = null;
@@ -124,7 +128,7 @@ class _MyHomePageState extends State<MathQustions>
           child: KNewQustionIcon,
           onPressed: () {
             Navigator.pop(context);
-            Provider.of<MathBrain>(context, listen: false).getQustion();
+            Provider.of<MathBrain>(context, listen: false).getMathQustion();
             setState(() {
               scoreKeeper = 0;
               savedInfo.saveDataToPrefs(scoreKeeper);
@@ -155,31 +159,13 @@ class _MyHomePageState extends State<MathQustions>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  Container(
-                      padding: EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                          border: Border.all(color: Colors.green[100])),
-                      child: Text(
-                        sucessInt.toString(),
-                        style: KmathStyle,
-                      )),
-                  Container(
-                      margin: EdgeInsets.all(10.0),
-                      child: Text(
-                        ':רצף תרגילים',
-                        style: TextStyle(
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )),
-                ]),
+                ResultCounterWidget(
+                    sucessInt: sucessInt == null ? 0 : sucessInt),
                 SizedBox(
                   height: 30.0,
                 ),
                 FlatButton(
-                  onPressed: mathBrain.getQustion,
+                  onPressed: mathBrain.getMathQustion,
                   child: KNewQustionIcon,
                   color: Colors.blue,
                   shape: RoundedRectangleBorder(
@@ -196,7 +182,7 @@ class _MyHomePageState extends State<MathQustions>
                     style: KmathStyle,
                   ),
                   KSizeBoxMath10,
-                  Icon(mathBrain.randomBoolean
+                  Icon(mathBrain.randomMathBoolean
                       ? FontAwesomeIcons.plus
                       : FontAwesomeIcons.minus),
                   KSizeBoxMath10,
@@ -288,6 +274,6 @@ class _MyHomePageState extends State<MathQustions>
   @override
   void afterFirstLayout(BuildContext context) {
     // Calling the same function "after layout" to resolve the issue.
-    Provider.of<MathBrain>(context, listen: false).getQustion();
+    Provider.of<MathBrain>(context, listen: false).getMathQustion();
   }
 }
