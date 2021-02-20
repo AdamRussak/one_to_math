@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:one_to_math/engine/math_brain.dart';
+import 'package:one_to_math/engine/saved_info.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -25,14 +26,25 @@ class _MyHomePageState extends State<MathQustions>
 
   bool userInput = false;
   int scoreKeeper = 0;
+  int sucessInt = 0;
   //alert Dialog for: approve see ansewr/ wrong answer/ right answer/ see answer
+  //init the SharedPref
+  SavedInfo savedInfo = SavedInfo();
+  void tapIntoSavedInfo() {
+    savedInfo.initSharedPrefs();
+  }
+
   void checkAnsewr(int userAnswer, bool checkInput) {
     if (userAnswer ==
             Provider.of<MathBrain>(context, listen: false).questionResult &&
         checkInput) {
       setState(() {
         scoreKeeper++;
+        savedInfo.saveDataToPrefs(scoreKeeper);
+        sucessInt = savedInfo.prefs.getInt('prefMathCount');
       });
+
+      //Alert Dialog's
       Alert(
         context: context,
         type: AlertType.success,
@@ -115,6 +127,8 @@ class _MyHomePageState extends State<MathQustions>
             Provider.of<MathBrain>(context, listen: false).getQustion();
             setState(() {
               scoreKeeper = 0;
+              savedInfo.saveDataToPrefs(scoreKeeper);
+              sucessInt = savedInfo.prefs.getInt('prefMathCount');
             });
           },
           width: 150,
@@ -125,6 +139,11 @@ class _MyHomePageState extends State<MathQustions>
   }
 
   @override
+  void initState() {
+    super.initState();
+    tapIntoSavedInfo();
+  }
+
   Widget build(BuildContext context) {
     return Consumer<MathBrain>(
       builder: (context, mathBrain, child) {
@@ -136,11 +155,26 @@ class _MyHomePageState extends State<MathQustions>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Column(
-                  children: [
-                    Text('Correct Answers in a Row: ${scoreKeeper.toString()}'),
-                  ],
-                ),
+                Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  Container(
+                      padding: EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          border: Border.all(color: Colors.green[100])),
+                      child: Text(
+                        sucessInt.toString(),
+                        style: KmathStyle,
+                      )),
+                  Container(
+                      margin: EdgeInsets.all(10.0),
+                      child: Text(
+                        ':רצף תרגילים',
+                        style: TextStyle(
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                ]),
                 SizedBox(
                   height: 30.0,
                 ),
