@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_to_math/widgets/app_title_widget.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({this.title});
@@ -13,7 +14,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: AppTitleWidget(),
       ),
       body: Center(
         child: Text('settings page will be here'),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:one_to_math/engine/math_brain.dart';
 import 'package:one_to_math/engine/saved_info.dart';
+import 'package:one_to_math/widgets/app_title_widget.dart';
 import 'package:one_to_math/widgets/result_counter.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -44,7 +45,7 @@ class _MyHomePageState extends State<MathQustions>
         checkInput) {
       setState(() {
         scoreKeeper++;
-        savedInfo.saveDataToPrefs(scoreKeeper);
+        savedInfo.saveDataToPrefs(scoreKeeper, 'prefMathCount');
         sucessInt = savedInfo.prefs.getInt('prefMathCount');
       });
 
@@ -131,7 +132,7 @@ class _MyHomePageState extends State<MathQustions>
             Provider.of<MathBrain>(context, listen: false).getMathQustion();
             setState(() {
               scoreKeeper = 0;
-              savedInfo.saveDataToPrefs(scoreKeeper);
+              savedInfo.saveDataToPrefs(scoreKeeper, 'prefMathCount');
               sucessInt = savedInfo.prefs.getInt('prefMathCount');
             });
           },
@@ -153,7 +154,7 @@ class _MyHomePageState extends State<MathQustions>
       builder: (context, mathBrain, child) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(widget.title),
+            title: AppTitleWidget(),
           ),
           body: Center(
             child: Column(

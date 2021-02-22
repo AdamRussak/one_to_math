@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:one_to_math/screens/math_qustions.dart';
 import 'package:one_to_math/screens/settings_screen.dart';
 import 'package:one_to_math/screens/who_is_bigger_screen.dart';
+import 'package:one_to_math/widgets/app_title_widget.dart';
 import 'package:one_to_math/widgets/sizebox.dart';
 
 class MathStartScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class _MathStartScreen extends State<MathStartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: AppTitleWidget(),
       ),
       body: Center(
         child: Column(
@@ -33,8 +34,7 @@ class _MathStartScreen extends State<MathStartScreen> {
                 iconSize: 40.0,
                 icon: Icon(FontAwesomeIcons.wrench),
                 onPressed: () {
-                  //page not active yet
-                  // Navigator.pushNamed(context, SettingsScreen.id);
+                  Navigator.pushNamed(context, SettingsScreen.id);
                 },
               ),
               SizedBox(
@@ -42,9 +42,11 @@ class _MathStartScreen extends State<MathStartScreen> {
               ),
             ]),
             SizedBox(
-              height: 30.0,
+              height: 50.0,
             ),
             FlatButton(
+              minWidth: 150.0,
+              height: 100.0,
               child: ButtonIcons(FontAwesomeIcons.minus, FontAwesomeIcons.plus),
               color: Colors.blue[300],
               onPressed: () {
@@ -54,9 +56,11 @@ class _MathStartScreen extends State<MathStartScreen> {
                   borderRadius: BorderRadius.circular(10)),
             ),
             SizedBox(
-              height: 30.0,
+              height: 50.0,
             ),
             FlatButton(
+              minWidth: 150.0,
+              height: 100.0,
               child: ButtonIcons(
                   FontAwesomeIcons.greaterThan, FontAwesomeIcons.lessThan),
               color: Colors.blue[300],

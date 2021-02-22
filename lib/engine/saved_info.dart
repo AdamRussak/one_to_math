@@ -8,12 +8,13 @@ class SavedInfo {
     prefs = await SharedPreferences.getInstance();
   }
 
-  saveDataToPrefs(int qeueuCount) async {
+  saveDataToPrefs(int qeueuCount, String inputkey) async {
     print('Saving data to form before Acting.......');
-    prefs.setInt('prefMathCount', qeueuCount);
+    prefs.setInt(inputkey, qeueuCount);
+    // prefs.setInt('prefMathCount', qeueuCount);
   }
 
   clearDataPrefs(String valueRemove) async {
-    prefs.remove('prefMathCount');
+    prefs.remove(valueRemove);
   }
 }
