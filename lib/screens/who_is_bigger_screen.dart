@@ -20,6 +20,8 @@ class WhoIsBiggerScreen extends StatefulWidget {
 
 class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
     with AfterLayoutMixin<WhoIsBiggerScreen> {
+  String userName = "עומר";
+  String correctAdjactive = "לומדת";
   var userAnswer;
   int scoreKeeper = 0;
   int sucessInt;
@@ -29,6 +31,13 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
     await savedInfo.initSharedPrefs();
     setState(() {
       sucessInt = savedInfo.prefs.getInt('prefMoreOrLessCount');
+      userName = savedInfo.prefs.getString('prefuserName') == null
+          ? "עומר"
+          : savedInfo.prefs.getString('prefuserName');
+      correctAdjactive =
+          savedInfo.prefs.getString('prefcorrectAdjactive') == null
+              ? "לומדת"
+              : savedInfo.prefs.getString('prefcorrectAdjactive');
     });
   }
 
@@ -70,11 +79,11 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
         context: context,
         type: AlertType.none,
         title: "?!?בטוח",
-        desc: "שווה לנסות",
+        desc: "הספירה תתאפס",
         style: AlertStyle(descStyle: KmathStyle, titleStyle: KmathStyle),
         buttons: [
           DialogButton(
-            child: Icon(FontAwesomeIcons.eye),
+            child: Icon(FontAwesomeIcons.solidThumbsUp),
             onPressed: () {
               Navigator.pop(context);
               showAnswer();
@@ -83,7 +92,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
             color: Colors.black45,
           ),
           DialogButton(
-            child: Icon(FontAwesomeIcons.undo),
+            child: Icon(FontAwesomeIcons.solidThumbsDown),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -109,10 +118,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
     Alert(
       context: context,
       type: AlertType.none,
-      image: Image(
-        image: Provider.of<MathBrain>(context).lessOrMoreAnswerIcon,
-      ),
-      title: ":התשובה",
+      title: "דלג/י שאלה",
       style: AlertStyle(descStyle: KmathStyle, titleStyle: KmathStyle),
       buttons: [
         DialogButton(

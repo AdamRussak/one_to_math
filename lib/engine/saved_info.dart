@@ -14,6 +14,12 @@ class SavedInfo {
     // prefs.setInt('prefMathCount', qeueuCount);
   }
 
+  saveStringToPrefs(String newStringValue, String newStringKey) async {
+    print('Saving data to form before Acting.......');
+    prefs.setString(newStringKey, newStringValue);
+    // prefs.setInt('prefMathCount', qeueuCount);
+  }
+
   clearDataPrefs(String valueRemove) async {
     prefs.remove(valueRemove);
   }

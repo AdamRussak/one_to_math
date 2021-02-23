@@ -13,6 +13,10 @@ class MathBrain extends ChangeNotifier {
   bool randomMathBoolean = true;
   var lessOrMoreAnswer;
   var lessOrMoreAnswerIcon;
+//set qustion's Max
+  void setQustionMax(int newMax) {
+    maxNumber = newMax;
+  }
 
 //new Math Question
   void getMathQustion() {
