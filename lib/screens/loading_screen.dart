@@ -1,13 +1,9 @@
-import 'dart:io';
-
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:one_to_math/engine/settings_brain.dart';
 import 'package:one_to_math/screens/start_screen.dart';
 import 'package:provider/provider.dart';
-
-import '../const_enums.dart';
 
 class LoadingScreen extends StatefulWidget {
   static const String id = 'loading_screen';

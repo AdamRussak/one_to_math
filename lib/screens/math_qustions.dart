@@ -155,8 +155,7 @@ class _MyHomePageState extends State<MathQustions>
           title: AppTitleWidget(),
         ),
         body: Center(
-          child: Consumer<MathBrain>(//            <--- MyModel Consumer
-              builder: (context, myModel, child) {
+          child: Consumer<MathBrain>(builder: (context, mathModel, child) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -168,7 +167,7 @@ class _MyHomePageState extends State<MathQustions>
                 FlatButton(
                   onPressed: () {
                     print('new qustion');
-                    myModel.getMathQustion();
+                    mathModel.getMathQustion();
                   },
                   child: KNewQustionIcon,
                   color: Colors.blue,
@@ -180,12 +179,8 @@ class _MyHomePageState extends State<MathQustions>
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Text(
-                    Provider.of<MathBrain>(context, listen: false)
-                                .randomNumber1 !=
-                            null
-                        ? Provider.of<MathBrain>(context, listen: false)
-                            .randomNumber1
-                            .toString()
+                    mathModel.randomNumber1 != null
+                        ? mathModel.randomNumber1.toString()
                         : "",
                     style: KmathStyle,
                   ),
@@ -196,12 +191,8 @@ class _MyHomePageState extends State<MathQustions>
                       : FontAwesomeIcons.minus),
                   KSizeBoxMath10,
                   Text(
-                    Provider.of<MathBrain>(context, listen: false)
-                                .randomNumber2 !=
-                            null
-                        ? Provider.of<MathBrain>(context, listen: false)
-                            .randomNumber2
-                            .toString()
+                    mathModel.randomNumber2 != null
+                        ? mathModel.randomNumber2.toString()
                         : "",
                     style: KmathStyle,
                   ),
@@ -239,12 +230,9 @@ class _MyHomePageState extends State<MathQustions>
                                   : Colors.white,
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color:
-                                  Provider.of<MathBrain>(context, listen: false)
-                                              .questionResult ==
-                                          null
-                                      ? Colors.grey[850]
-                                      : Colors.blue,
+                              color: mathModel.questionResult == null
+                                  ? Colors.grey[850]
+                                  : Colors.blue,
                             ),
                             borderRadius: BorderRadius.all(
                               Radius.circular(5),
