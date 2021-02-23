@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:one_to_math/engine/settings_brain.dart';
@@ -14,16 +15,10 @@ class LoadingScreen extends StatefulWidget {
   _LoadingScreenState createState() => _LoadingScreenState();
 }
 
-class _LoadingScreenState extends State<LoadingScreen> {
+class _LoadingScreenState extends State<LoadingScreen>
+    with AfterLayoutMixin<LoadingScreen> {
   double latitude;
   double longitude;
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<SettingsBrain>(context, listen: false)
-        .loadSavedString('prefUserName');
-    getLocationData();
-  }
 
   var getVars = "null";
   void getLocationData() {
@@ -58,5 +53,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    // Calling the same function "after layout" to resolve the issue.
+    getVars = Provider.of<SettingsBrain>(context, listen: false).getuser();
+    getLocationData();
   }
 }

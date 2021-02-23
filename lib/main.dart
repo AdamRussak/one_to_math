@@ -9,6 +9,8 @@ import 'const_enums.dart';
 import 'screens/math_qustions.dart';
 import 'screens/start_screen.dart';
 
+//https://medium.com/codespace69/flutter-how-does-multiprovider-work-with-providers-of-the-same-type-bd632bd2cbad
+
 void main() {
   // Provider.debugCheckInvalidValueType = null;
   runApp(MultiProvider(providers: [
