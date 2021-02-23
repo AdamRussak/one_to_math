@@ -11,20 +11,19 @@ import 'screens/start_screen.dart';
 
 //https://medium.com/codespace69/flutter-how-does-multiprovider-work-with-providers-of-the-same-type-bd632bd2cbad
 
-void main() {
-  // Provider.debugCheckInvalidValueType = null;
-  runApp(MultiProvider(providers: [
-    Provider<MathBrain>(create: (_) => MathBrain()),
-    Provider<SettingsBrain>(create: (_) => SettingsBrain()),
-  ], child: MyApp()));
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => SettingsBrain(),
+    return MultiProvider(
+      //                                     <--- MultiProvider
+      providers: [
+        ChangeNotifierProvider<MathBrain>(create: (context) => MathBrain()),
+        ChangeNotifierProvider<SettingsBrain>(
+            create: (context) => SettingsBrain()),
+      ],
       child: MaterialApp(
           theme: ThemeData.dark(),
           initialRoute: LoadingScreen.id,

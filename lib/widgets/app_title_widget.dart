@@ -6,8 +6,10 @@ import 'package:provider/provider.dart';
 class AppTitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String uesrName = Provider.of<SettingsBrain>(context).userName;
-    String correctAdjactive = Provider.of<SettingsBrain>(context).genderLurning;
+    String uesrName =
+        Provider.of<SettingsBrain>(context, listen: false).userName;
+    String correctAdjactive =
+        Provider.of<SettingsBrain>(context, listen: false).genderLurning;
 
     return Container(
       width: MediaQuery.of(context).size.width,

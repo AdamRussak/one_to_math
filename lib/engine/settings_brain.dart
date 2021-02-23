@@ -23,8 +23,6 @@ class SettingsBrain extends ChangeNotifier {
     userName = savedInfo.prefs.getString(stringKey) != null
         ? savedInfo.prefs.getString(stringKey)
         : "עומר";
-    updateName(userName);
-    updateName('עומר');
     print(userName);
     notifyListeners();
   }

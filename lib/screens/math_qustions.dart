@@ -163,8 +163,10 @@ class _MyHomePageState extends State<MathQustions>
               height: 30.0,
             ),
             FlatButton(
-              onPressed:
-                  Provider.of<MathBrain>(context, listen: false).getMathQustion,
+              onPressed: () {
+                print('new qustion');
+                Provider.of<MathBrain>(context, listen: false).getMathQustion;
+              },
               child: KNewQustionIcon,
               color: Colors.blue,
               shape: RoundedRectangleBorder(
