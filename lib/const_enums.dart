@@ -29,3 +29,7 @@ enum Answer {
   right,
   pass,
 }
+enum KidsGender {
+  boy,
+  gairl,
+}

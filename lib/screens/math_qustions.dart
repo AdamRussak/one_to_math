@@ -12,9 +12,6 @@ import 'package:one_to_math/const_enums.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class MathQustions extends StatefulWidget {
-  MathQustions({this.title});
-
-  final String title;
   static const String id = 'math_qustions';
 
   @override

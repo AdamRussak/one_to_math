@@ -15,6 +15,7 @@ class SetAppSettings extends StatelessWidget {
   final Widget popUpWidget;
 
   @override
+  //TODO: add a retunr bottun at the bottom
   Widget build(BuildContext context) {
     final SimpleDialog dialog = SimpleDialog(
       backgroundColor: Colors.blue,
@@ -31,13 +32,12 @@ class SetAppSettings extends StatelessWidget {
     return FlatButton(
       onPressed: () {
         showDialog<void>(context: context, builder: (context) => dialog);
-        // Navigator.pushNamed(context, SettingsScreen.id);
       },
       child: Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.all(10.0),
-        height: 100,
-        width: 120,
+        padding: EdgeInsets.all(20.0),
+        height: 120,
+        width: 150,
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.blue,
@@ -52,7 +52,9 @@ class SetAppSettings extends StatelessWidget {
           SizedBox(
             height: 10.0,
           ),
-          Text(buttonText),
+          Text(
+            buttonText,
+          ),
         ]),
       ),
     );

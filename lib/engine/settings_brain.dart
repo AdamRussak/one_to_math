@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_to_math/const_enums.dart';
 import 'package:one_to_math/engine/saved_info.dart';
 
 class SettingsBrain extends ChangeNotifier {
@@ -6,15 +7,34 @@ class SettingsBrain extends ChangeNotifier {
   int maxNumber = 10;
   String userName = "עומר";
   String genderLurning = "לומדת";
-  void updateName(String newName) {
-    userName = newName;
-    saveToSharedPrefs(userName);
+  dynamic kidsGender;
+
+  void updateEnum(dynamic newState) {
+    kidsGender = newState;
+    kidsGender;
+    setGenderLurning();
     notifyListeners();
   }
 
-  void saveToSharedPrefs(String tempName) async {
+  void setGenderLurning() {
+    if (kidsGender == KidsGender.gairl) {
+      genderLurning = "לומדת";
+    } else {
+      genderLurning = "לומד";
+    }
+    notifyListeners();
+  }
+
+//update String to pref shareed
+  void updateName(String newName, String prefKey) {
+    userName = newName;
+    saveStringToSharedPrefs(userName, prefKey);
+    notifyListeners();
+  }
+
+  void saveStringToSharedPrefs(String tempName, String prefKey) async {
     await savedInfo.initSharedPrefs();
-    savedInfo.saveStringToPrefs(tempName, 'prefUserName');
+    savedInfo.saveStringToPrefs(tempName, prefKey);
     notifyListeners();
   }
 
