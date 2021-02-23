@@ -151,141 +151,148 @@ class _MyHomePageState extends State<MathQustions>
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: AppTitleWidget(),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ResultCounterWidget(sucessInt: sucessInt == null ? 0 : sucessInt),
-            SizedBox(
-              height: 30.0,
-            ),
-            FlatButton(
-              onPressed: () {
-                print('new qustion');
-                Provider.of<MathBrain>(context, listen: false).getMathQustion;
-              },
-              child: KNewQustionIcon,
-              color: Colors.blue,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-            ),
-            SizedBox(
-              height: 50.0,
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(
-                Provider.of<MathBrain>(context, listen: false).randomNumber1 !=
-                        null
-                    ? Provider.of<MathBrain>(context, listen: false)
-                        .randomNumber1
-                        .toString()
-                    : "",
-                style: KmathStyle,
-              ),
-              KSizeBoxMath10,
-              Icon(Provider.of<MathBrain>(context, listen: false)
-                      .randomMathBoolean
-                  ? FontAwesomeIcons.plus
-                  : FontAwesomeIcons.minus),
-              KSizeBoxMath10,
-              Text(
-                Provider.of<MathBrain>(context, listen: false).randomNumber2 !=
-                        null
-                    ? Provider.of<MathBrain>(context, listen: false)
-                        .randomNumber2
-                        .toString()
-                    : "",
-                style: KmathStyle,
-              ),
-              KSizeBoxMath10,
-              Icon(FontAwesomeIcons.equals),
-              KSizeBoxMath10,
-              SizedBox(
-                width: 65,
-                child: TextField(
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  controller: answerTextController,
-                  maxLength: Provider.of<MathBrain>(context, listen: false)
-                      .maxNumber
-                      .toString()
-                      .length,
-                  maxLengthEnforced: true,
-                  enabled: Provider.of<MathBrain>(context, listen: false)
-                              .questionResult ==
-                          null
-                      ? false
-                      : true,
-                  style:
-                      TextStyle(color: Colors.black, fontSize: 35, height: 2),
-                  decoration: InputDecoration(
-                      isDense: true,
-                      contentPadding: EdgeInsets.all(4),
-                      filled: true,
-                      fillColor: Provider.of<MathBrain>(context, listen: false)
+        appBar: AppBar(
+          title: AppTitleWidget(),
+        ),
+        body: Center(
+          child: Consumer<MathBrain>(//            <--- MyModel Consumer
+              builder: (context, myModel, child) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ResultCounterWidget(
+                    sucessInt: sucessInt == null ? 0 : sucessInt),
+                SizedBox(
+                  height: 30.0,
+                ),
+                FlatButton(
+                  onPressed: () {
+                    print('new qustion');
+                    myModel.getMathQustion();
+                  },
+                  child: KNewQustionIcon,
+                  color: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                ),
+                SizedBox(
+                  height: 50.0,
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Text(
+                    Provider.of<MathBrain>(context, listen: false)
+                                .randomNumber1 !=
+                            null
+                        ? Provider.of<MathBrain>(context, listen: false)
+                            .randomNumber1
+                            .toString()
+                        : "",
+                    style: KmathStyle,
+                  ),
+                  KSizeBoxMath10,
+                  Icon(Provider.of<MathBrain>(context, listen: false)
+                          .randomMathBoolean
+                      ? FontAwesomeIcons.plus
+                      : FontAwesomeIcons.minus),
+                  KSizeBoxMath10,
+                  Text(
+                    Provider.of<MathBrain>(context, listen: false)
+                                .randomNumber2 !=
+                            null
+                        ? Provider.of<MathBrain>(context, listen: false)
+                            .randomNumber2
+                            .toString()
+                        : "",
+                    style: KmathStyle,
+                  ),
+                  KSizeBoxMath10,
+                  Icon(FontAwesomeIcons.equals),
+                  KSizeBoxMath10,
+                  SizedBox(
+                    width: 65,
+                    child: TextField(
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                      controller: answerTextController,
+                      maxLength: Provider.of<MathBrain>(context, listen: false)
+                          .maxNumber
+                          .toString()
+                          .length,
+                      maxLengthEnforced: true,
+                      enabled: Provider.of<MathBrain>(context, listen: false)
                                   .questionResult ==
                               null
-                          ? Colors.grey[850]
-                          : Colors.white,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Provider.of<MathBrain>(context, listen: false)
-                                      .questionResult ==
-                                  null
-                              ? Colors.grey[850]
-                              : Colors.blue,
-                        ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                      )),
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.left,
-                  onChanged: (newText) {
-                    userAnswer = newText;
+                          ? false
+                          : true,
+                      style: TextStyle(
+                          color: Colors.black, fontSize: 35, height: 2),
+                      decoration: InputDecoration(
+                          isDense: true,
+                          contentPadding: EdgeInsets.all(4),
+                          filled: true,
+                          fillColor:
+                              Provider.of<MathBrain>(context, listen: false)
+                                          .questionResult ==
+                                      null
+                                  ? Colors.grey[850]
+                                  : Colors.white,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color:
+                                  Provider.of<MathBrain>(context, listen: false)
+                                              .questionResult ==
+                                          null
+                                      ? Colors.grey[850]
+                                      : Colors.blue,
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                          )),
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.left,
+                      onChanged: (newText) {
+                        userAnswer = newText;
+                      },
+                    ),
+                  ),
+                ]),
+                SizedBox(
+                  height: 50.0,
+                ),
+                FlatButton(
+                  textColor: Colors.white,
+                  child: Icon(
+                    FontAwesomeIcons.cashRegister,
+                    size: 50.0,
+                  ),
+                  color: Colors.green,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  onPressed: () {
+                    var intAnswer;
+                    //The user picked true.
+                    if (answerTextController.text == null ||
+                        answerTextController.text == "") {
+                      intAnswer = 1;
+                      userInput = false;
+                    } else {
+                      intAnswer = int.parse(answerTextController.text);
+                      userInput = true;
+                    }
+                    checkAnsewr(
+                        intAnswer == null || answerTextController.text == ""
+                            ? 0
+                            : intAnswer,
+                        userInput);
+                    answerTextController.clear();
                   },
                 ),
-              ),
-            ]),
-            SizedBox(
-              height: 50.0,
-            ),
-            FlatButton(
-              textColor: Colors.white,
-              child: Icon(
-                FontAwesomeIcons.cashRegister,
-                size: 50.0,
-              ),
-              color: Colors.green,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              onPressed: () {
-                var intAnswer;
-                //The user picked true.
-                if (answerTextController.text == null ||
-                    answerTextController.text == "") {
-                  intAnswer = 1;
-                  userInput = false;
-                } else {
-                  intAnswer = int.parse(answerTextController.text);
-                  userInput = true;
-                }
-                checkAnsewr(
-                    intAnswer == null || answerTextController.text == ""
-                        ? 0
-                        : intAnswer,
-                    userInput);
-                answerTextController.clear();
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+              ],
+            );
+          }),
+        ));
   }
 
   @override
