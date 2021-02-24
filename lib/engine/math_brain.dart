@@ -2,9 +2,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:one_to_math/const_enums.dart';
+import 'package:one_to_math/engine/saved_info.dart';
 
 class MathBrain extends ChangeNotifier {
   //random Init
+  SavedInfo savedInfo = SavedInfo();
   Random random = Random();
   int maxNumber = 10;
   int randomNumber1;
@@ -16,6 +18,28 @@ class MathBrain extends ChangeNotifier {
 //set qustion's Max
   void setQustionMax(int newMax) {
     maxNumber = newMax;
+  }
+
+  // load sved maxInt
+  void loadSavedInt(String stringKey, dynamic taskEnum) async {
+    await savedInfo.initSharedPrefs();
+    maxNumber = savedInfo.prefs.getInt(stringKey) != null
+        ? savedInfo.prefs.getInt(stringKey)
+        : 10;
+    if (taskEnum == MathTask.math) {
+      getMathQustion();
+    } else if (taskEnum == MathTask.lesOrMore) {
+      getLessOrMoreQustion();
+    }
+    notifyListeners();
+  }
+
+  //update int to pref shareed
+  void updateMaxInt(int newInt, String prefKey) async {
+    maxNumber = newInt;
+    await savedInfo.initSharedPrefs();
+    savedInfo.saveDataToPrefs(maxNumber, prefKey);
+    notifyListeners();
   }
 
 //new Math Question
@@ -82,8 +106,7 @@ class MathBrain extends ChangeNotifier {
   }
 
   //setting qustion limit
-  int setQustionsInt(int newInt) {
+  void setQustionsInt(int newInt) {
     maxNumber = newInt;
-    return maxNumber;
   }
 }

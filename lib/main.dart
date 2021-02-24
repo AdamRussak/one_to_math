@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      //                                     <--- MultiProvider
       providers: [
         ChangeNotifierProvider<MathBrain>(create: (context) => MathBrain()),
         ChangeNotifierProvider<SettingsBrain>(

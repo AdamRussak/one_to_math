@@ -274,6 +274,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
   @override
   void afterFirstLayout(BuildContext context) {
     // Calling the same function "after layout" to resolve the issue.
-    Provider.of<MathBrain>(context, listen: false).getLessOrMoreQustion();
+    Provider.of<MathBrain>(context, listen: false)
+        .loadSavedInt(KMaxInt, MathTask.lesOrMore);
   }
 }

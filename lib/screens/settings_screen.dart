@@ -34,33 +34,52 @@ class _SettingsScreenState extends State<SettingsScreen> {
               height: 100.0,
             ),
             //TODO: add Consumer and set variaables for the sttings
-            DropdownButton<IconData>(
-              value: dropdownValue,
-              icon: Icon(Icons.arrow_downward),
-              iconSize: 24,
-              elevation: 16,
-              style: TextStyle(color: Colors.deepPurple),
-              underline: Container(),
-              onChanged: (IconData newValue) {
-                setState(() {
-                  dropdownValue = newValue;
-                });
-              },
-              items: <IconData>[
-                FontAwesomeIcons.venus,
-                FontAwesomeIcons.mars,
-              ].map<DropdownMenuItem<IconData>>((IconData value) {
-                return DropdownMenuItem<IconData>(
-                  value: value,
-                  child: Icon(
-                    value,
-                    size: 60.0,
+            Consumer<SettingsBrain>(builder: (context, settingBrain, child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: Row(children: [
+                      Column(
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.mars,
+                            size: 60.0,
+                          ),
+                          Radio(
+                            groupValue: settingBrain.kidsGender,
+                            value: KidsGender.boy,
+                            onChanged: (value) {
+                              settingBrain.setGenderLurning(value);
+                            },
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        width: 15.0,
+                      ),
+                      Column(
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.venus,
+                            size: 60.0,
+                          ),
+                          Radio(
+                            groupValue: settingBrain.kidsGender,
+                            value: KidsGender.gairl,
+                            onChanged: (value) {
+                              settingBrain.setGenderLurning(value);
+                            },
+                          )
+                        ],
+                      ),
+                    ]),
                   ),
-                );
-              }).toList(),
-            ),
+                ],
+              );
+            }),
             SizedBox(
-              height: 100.0,
+              height: 50.0,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -78,13 +97,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           step: 10,
                           onValue: (value) {
                             newInt = value;
-                            print(value.toString());
                           },
                         ),
                         FlatButton(
                           child: Text('שמור'),
                           onPressed: () {
-                            mathBrain.setQustionMax(newInt);
+                            mathBrain.updateMaxInt(newInt, KMaxInt);
                             Navigator.pop(context);
                           },
                         ),

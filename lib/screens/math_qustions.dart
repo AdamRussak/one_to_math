@@ -283,6 +283,7 @@ class _MyHomePageState extends State<MathQustions>
   @override
   void afterFirstLayout(BuildContext context) {
     // Calling the same function "after layout" to resolve the issue.
-    Provider.of<MathBrain>(context, listen: false).getMathQustion();
+    Provider.of<MathBrain>(context, listen: false)
+        .loadSavedInt(KMaxInt, MathTask.math);
   }
 }

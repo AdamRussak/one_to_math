@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+const KMaxInt = 'prefMaxInt';
+const KGender = 'prefGender';
 const KmathStyle = TextStyle(
   fontSize: 50.0,
   fontWeight: FontWeight.bold,
@@ -32,4 +34,8 @@ enum Answer {
 enum KidsGender {
   boy,
   gairl,
+}
+enum MathTask {
+  math,
+  lesOrMore,
 }

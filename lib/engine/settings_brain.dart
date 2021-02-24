@@ -7,20 +7,33 @@ class SettingsBrain extends ChangeNotifier {
   int maxNumber = 10;
   String userName = "עומר";
   String genderLurning = "לומדת";
-  dynamic kidsGender;
+  String _enumString;
+  var kidsGender = KidsGender.gairl;
 
-  void updateEnum(dynamic newState) {
-    kidsGender = newState;
-    kidsGender;
-    setGenderLurning();
-    notifyListeners();
+  void setStartString(String prefKey) async {
+    await savedInfo.initSharedPrefs();
+    _enumString = savedInfo.prefs.getString(prefKey) != null
+        ? savedInfo.prefs.getString(prefKey)
+        : "gairl";
+    if (_enumString == 'gairl') {
+      kidsGender = KidsGender.gairl;
+    } else if (_enumString == 'boy') {
+      kidsGender = KidsGender.boy;
+    }
+    setGenderLurning(kidsGender);
   }
 
-  void setGenderLurning() {
-    if (kidsGender == KidsGender.gairl) {
+  void setGenderLurning(newkidsGender) {
+    if (KidsGender.gairl == newkidsGender) {
       genderLurning = "לומדת";
+      _enumString = 'gairl';
+      kidsGender = KidsGender.gairl;
+      saveStringToSharedPrefs(_enumString, KGender);
     } else {
       genderLurning = "לומד";
+      kidsGender = KidsGender.boy;
+      _enumString = 'boy';
+      saveStringToSharedPrefs(_enumString, KGender);
     }
     notifyListeners();
   }
