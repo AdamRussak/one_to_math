@@ -56,7 +56,7 @@ class _LoadingScreenState extends State<LoadingScreen>
   void afterFirstLayout(BuildContext context) {
     // Calling the same function "after layout" to resolve the issue.
     Provider.of<SettingsBrain>(context, listen: false).setStartString(KGender);
-    getVars = Provider.of<SettingsBrain>(context, listen: false).getuser();
+    Provider.of<SettingsBrain>(context, listen: false).getuser();
     getLocationData();
   }
 }
