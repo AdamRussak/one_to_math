@@ -20,24 +20,18 @@ class WhoIsBiggerScreen extends StatefulWidget {
 
 class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
     with AfterLayoutMixin<WhoIsBiggerScreen> {
-  String userName = "עומר";
-  String correctAdjactive = "לומדת";
   var userAnswer;
-  int scoreKeeper = 0;
+  int scoreKeeper;
   int sucessInt;
   final answerTextController = TextEditingController();
   SavedInfo savedInfo = SavedInfo();
   void tapIntoSavedInfo() async {
     await savedInfo.initSharedPrefs();
     setState(() {
-      sucessInt = savedInfo.prefs.getInt('prefMoreOrLessCount');
-      userName = savedInfo.prefs.getString('prefuserName') == null
-          ? "עומר"
-          : savedInfo.prefs.getString('prefuserName');
-      correctAdjactive =
-          savedInfo.prefs.getString('prefcorrectAdjactive') == null
-              ? "לומדת"
-              : savedInfo.prefs.getString('prefcorrectAdjactive');
+      sucessInt = savedInfo.prefs.getInt('prefMoreOrLessCount') != null
+          ? savedInfo.prefs.getInt('prefMoreOrLessCount')
+          : 0;
+      scoreKeeper = sucessInt;
     });
   }
 
@@ -149,6 +143,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
   Widget build(BuildContext context) {
     return Consumer<MathBrain>(builder: (context, mathBrain, child) {
       return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: AppTitleWidget(),
@@ -157,6 +152,31 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 30.0,
+                  ),
+                  Container(
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        FontAwesomeIcons.backspace,
+                        size: 45.0,
+                      ),
+                      color: Colors.green[400],
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 40.0,
+              ),
               ResultCounterWidget(
                 sucessInt: sucessInt == null ? 0 : sucessInt,
               ),
@@ -265,31 +285,6 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                   style: KMoreOrLessTextStyle,
                 ),
               ]),
-              SizedBox(
-                height: 40.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 30.0,
-                  ),
-                  Container(
-                    child: FlatButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        FontAwesomeIcons.backspace,
-                        size: 45.0,
-                      ),
-                      color: Colors.green[400],
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                    ),
-                  ),
-                ],
-              )
             ],
           ),
         ),

@@ -32,6 +32,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Column(
           children: [
             SizedBox(
+              height: 80.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 30.0,
+                ),
+                Container(
+                  child: FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      FontAwesomeIcons.backspace,
+                      size: 45.0,
+                    ),
+                    color: Colors.green[400],
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 40.0,
+            ),
+            SizedBox(
               height: 100.0,
             ),
             //TODO: add Consumer and set variaables for the sttings
@@ -152,31 +180,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 }),
               ],
             ),
-            SizedBox(
-              height: 40.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 30.0,
-                ),
-                Container(
-                  child: FlatButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      FontAwesomeIcons.backspace,
-                      size: 45.0,
-                    ),
-                    color: Colors.green[400],
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
-                ),
-              ],
-            )
           ],
         ),
       ),

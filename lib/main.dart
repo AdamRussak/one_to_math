@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_to_math/engine/math_brain.dart';
 import 'package:one_to_math/engine/settings_brain.dart';
+import 'package:one_to_math/screens/multiply_qustions.dart';
 import 'package:one_to_math/screens/settings_screen.dart';
 import 'package:one_to_math/screens/who_is_bigger_screen.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData.dark(),
           initialRoute: MathStartScreen.id,
           routes: {
+            MultiplyQustions.id: (context) => MultiplyQustions(),
             MathStartScreen.id: (context) => MathStartScreen(),
             MathQustions.id: (context) => MathQustions(),
             SettingsScreen.id: (context) => SettingsScreen(),

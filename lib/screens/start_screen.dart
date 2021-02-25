@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:one_to_math/const_enums.dart';
 import 'package:one_to_math/engine/settings_brain.dart';
 import 'package:one_to_math/screens/math_qustions.dart';
+import 'package:one_to_math/screens/multiply_qustions.dart';
 import 'package:one_to_math/screens/settings_screen.dart';
 import 'package:one_to_math/screens/who_is_bigger_screen.dart';
 import 'package:one_to_math/widgets/app_title_widget.dart';
@@ -59,8 +60,6 @@ class _MathStartScreen extends State<MathStartScreen>
             SizedBox(
               height: 60.0,
             ),
-            //TODO: create male/ femal input
-            //TODO: create on off for settings
             FlatButton(
               minWidth: 150.0,
               height: 100.0,
@@ -87,6 +86,21 @@ class _MathStartScreen extends State<MathStartScreen>
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
             ),
+            SizedBox(
+              height: 50.0,
+            ),
+            FlatButton(
+              minWidth: 150.0,
+              height: 100.0,
+              child:
+                  ButtonIcons(FontAwesomeIcons.divide, FontAwesomeIcons.times),
+              color: Colors.blue[300],
+              onPressed: () {
+                Navigator.pushNamed(context, MultiplyQustions.id);
+              },
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+            )
           ],
         ),
       ),

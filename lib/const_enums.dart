@@ -38,4 +38,5 @@ enum KidsGender {
 enum MathTask {
   math,
   lesOrMore,
+  multy,
 }

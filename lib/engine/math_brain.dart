@@ -15,6 +15,7 @@ class MathBrain extends ChangeNotifier {
   bool randomMathBoolean = true;
   var lessOrMoreAnswer;
   var lessOrMoreAnswerIcon;
+  var multyResult;
 //set qustion's Max
   void setQustionMax(int newMax) {
     maxNumber = newMax;
@@ -30,6 +31,8 @@ class MathBrain extends ChangeNotifier {
       getMathQustion();
     } else if (taskEnum == MathTask.lesOrMore) {
       getLessOrMoreQustion();
+    } else if (taskEnum == MathTask.multy) {
+      getMultiplyRandomInt();
     }
     notifyListeners();
   }
@@ -58,6 +61,19 @@ class MathBrain extends ChangeNotifier {
     } else {
       randomNumber1 = random.nextInt(maxNumber);
       randomNumber2 = randomNumber1 == 0 ? 0 : random.nextInt(randomNumber1);
+    }
+    notifyListeners();
+  }
+
+  //random number for + - qustions
+  void getMultiplyRandomInt() {
+    randomNumber1 = random.nextInt(maxNumber);
+    randomNumber2 = random.nextInt(maxNumber);
+    multyResult = randomNumber1 * randomNumber2;
+    while (multyResult >= maxNumber || multyResult == 0) {
+      randomNumber1 = random.nextInt(maxNumber);
+      randomNumber2 = random.nextInt(maxNumber);
+      multyResult = randomNumber1 * randomNumber2;
     }
     notifyListeners();
   }

@@ -11,20 +11,20 @@ import 'package:after_layout/after_layout.dart';
 import 'package:one_to_math/const_enums.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class MathQustions extends StatefulWidget {
-  static const String id = 'math_qustions';
+class MultiplyQustions extends StatefulWidget {
+  static const String id = 'multiply_qustions';
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MultiplyQustionsState createState() => _MultiplyQustionsState();
 }
 
-class _MyHomePageState extends State<MathQustions>
-    with AfterLayoutMixin<MathQustions> {
+class _MultiplyQustionsState extends State<MultiplyQustions>
+    with AfterLayoutMixin<MultiplyQustions> {
   final answerTextController = TextEditingController();
   String userAnswer;
 
   bool userInput = false;
-  int scoreKeeper = 0;
+  int scoreKeeper;
   int sucessInt;
   //alert Dialog for: approve see ansewr/ wrong answer/ right answer/ see answer
   //init the SharedPref
@@ -32,8 +32,8 @@ class _MyHomePageState extends State<MathQustions>
   void tapIntoSavedInfo() async {
     await savedInfo.initSharedPrefs();
     setState(() {
-      sucessInt = savedInfo.prefs.getInt('prefMathCount') != null
-          ? savedInfo.prefs.getInt('prefMathCount')
+      sucessInt = savedInfo.prefs.getInt('prefMultyCount') != null
+          ? savedInfo.prefs.getInt('prefMultyCount')
           : 0;
       scoreKeeper = sucessInt;
     });
@@ -41,12 +41,12 @@ class _MyHomePageState extends State<MathQustions>
 
   void checkAnsewr(int userAnswer, bool checkInput) {
     if (userAnswer ==
-            Provider.of<MathBrain>(context, listen: false).questionResult &&
+            Provider.of<MathBrain>(context, listen: false).multyResult &&
         checkInput) {
       setState(() {
         scoreKeeper++;
-        savedInfo.saveDataToPrefs(scoreKeeper, 'prefMathCount');
-        sucessInt = savedInfo.prefs.getInt('prefMathCount');
+        savedInfo.saveDataToPrefs(scoreKeeper, 'prefMultyCount');
+        sucessInt = savedInfo.prefs.getInt('prefMultyCount');
       });
 
       //Alert Dialog's
@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MathQustions>
         type: AlertType.success,
         title: ":התשובה",
         desc: Provider.of<MathBrain>(context, listen: false)
-            .questionResult
+            .multyResult
             .toString(),
         style: AlertStyle(descStyle: KmathStyle, titleStyle: KmathStyle),
         buttons: [
@@ -63,7 +63,8 @@ class _MyHomePageState extends State<MathQustions>
             child: KNewQustionIcon,
             onPressed: () {
               Navigator.pop(context);
-              Provider.of<MathBrain>(context, listen: false).getMathQustion();
+              Provider.of<MathBrain>(context, listen: false)
+                  .getMultiplyRandomInt();
               setState(() {
                 userInput = false;
                 userAnswer = null;
@@ -75,7 +76,7 @@ class _MyHomePageState extends State<MathQustions>
         ],
       ).show();
     } else if (userAnswer !=
-            Provider.of<MathBrain>(context, listen: false).questionResult &&
+            Provider.of<MathBrain>(context, listen: false).multyResult &&
         checkInput) {
       Fluttertoast.showToast(
           msg: "תשובה לא נכונה, נסי/ה שנית",
@@ -120,20 +121,20 @@ class _MyHomePageState extends State<MathQustions>
       context: context,
       type: AlertType.none,
       title: ":התשובה",
-      desc: Provider.of<MathBrain>(context, listen: false)
-          .questionResult
-          .toString(),
+      desc:
+          Provider.of<MathBrain>(context, listen: false).multyResult.toString(),
       style: AlertStyle(descStyle: KmathStyle, titleStyle: KmathStyle),
       buttons: [
         DialogButton(
           child: KNewQustionIcon,
           onPressed: () {
             Navigator.pop(context);
-            Provider.of<MathBrain>(context, listen: false).getMathQustion();
+            Provider.of<MathBrain>(context, listen: false)
+                .getMultiplyRandomInt();
             setState(() {
               scoreKeeper = 0;
-              savedInfo.saveDataToPrefs(scoreKeeper, 'prefMathCount');
-              sucessInt = savedInfo.prefs.getInt('prefMathCount');
+              savedInfo.saveDataToPrefs(scoreKeeper, 'prefMultyCount');
+              sucessInt = savedInfo.prefs.getInt('prefMultyCount');
             });
           },
           width: 150,
@@ -194,7 +195,10 @@ class _MyHomePageState extends State<MathQustions>
                 FlatButton(
                   onPressed: () {
                     print('new qustion');
-                    mathModel.getMathQustion();
+                    mathModel.getMultiplyRandomInt();
+                    print(mathModel.randomNumber1);
+                    print(mathModel.randomNumber2);
+                    print(mathModel.multyResult);
                   },
                   child: KNewQustionIcon,
                   color: Colors.blue,
@@ -212,10 +216,10 @@ class _MyHomePageState extends State<MathQustions>
                     style: KmathStyle,
                   ),
                   KSizeBoxMath10,
-                  Icon(Provider.of<MathBrain>(context, listen: false)
-                          .randomMathBoolean
-                      ? FontAwesomeIcons.plus
-                      : FontAwesomeIcons.minus),
+                  Icon(
+                    FontAwesomeIcons.times,
+                    size: 45.0,
+                  ),
                   KSizeBoxMath10,
                   Text(
                     mathModel.randomNumber2 != null
@@ -233,31 +237,21 @@ class _MyHomePageState extends State<MathQustions>
                         FilteringTextInputFormatter.digitsOnly
                       ],
                       controller: answerTextController,
-                      maxLength: Provider.of<MathBrain>(context, listen: false)
-                          .maxNumber
-                          .toString()
-                          .length,
+                      maxLength: mathModel.maxNumber.toString().length,
                       maxLengthEnforced: true,
-                      enabled: Provider.of<MathBrain>(context, listen: false)
-                                  .questionResult ==
-                              null
-                          ? false
-                          : true,
+                      enabled: mathModel.multyResult == null ? false : true,
                       style: TextStyle(
                           color: Colors.black, fontSize: 35, height: 2),
                       decoration: InputDecoration(
                           isDense: true,
                           contentPadding: EdgeInsets.all(4),
                           filled: true,
-                          fillColor:
-                              Provider.of<MathBrain>(context, listen: false)
-                                          .questionResult ==
-                                      null
-                                  ? Colors.grey[850]
-                                  : Colors.white,
+                          fillColor: mathModel.multyResult == null
+                              ? Colors.grey[850]
+                              : Colors.white,
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: mathModel.questionResult == null
+                              color: mathModel.multyResult == null
                                   ? Colors.grey[850]
                                   : Colors.blue,
                             ),
@@ -314,6 +308,6 @@ class _MyHomePageState extends State<MathQustions>
   void afterFirstLayout(BuildContext context) {
     // Calling the same function "after layout" to resolve the issue.
     Provider.of<MathBrain>(context, listen: false)
-        .loadSavedInt(KMaxInt, MathTask.math);
+        .loadSavedInt(KMaxInt, MathTask.multy);
   }
 }
