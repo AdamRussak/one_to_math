@@ -150,6 +150,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
     return Consumer<MathBrain>(builder: (context, mathBrain, child) {
       return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: AppTitleWidget(),
         ),
         body: Center(
@@ -173,7 +174,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                       checkAnsewr(userAnswer);
                     },
                     child: Icon(
-                      FontAwesomeIcons.backspace,
+                      FontAwesomeIcons.exchangeAlt,
                       size: 45.0,
                     ),
                     color: Colors.redAccent,
@@ -264,6 +265,31 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                   style: KMoreOrLessTextStyle,
                 ),
               ]),
+              SizedBox(
+                height: 40.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 30.0,
+                  ),
+                  Container(
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        FontAwesomeIcons.backspace,
+                        size: 45.0,
+                      ),
+                      color: Colors.green[400],
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

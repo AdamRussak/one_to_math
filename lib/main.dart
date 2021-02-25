@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
           theme: ThemeData.dark(),
           initialRoute: MathStartScreen.id,
           routes: {
-            // LoadingScreen.id: (context) => LoadingScreen(),
             MathStartScreen.id: (context) => MathStartScreen(),
             MathQustions.id: (context) => MathQustions(),
             SettingsScreen.id: (context) => SettingsScreen(),

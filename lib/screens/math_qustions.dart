@@ -149,6 +149,7 @@ class _MyHomePageState extends State<MathQustions>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: AppTitleWidget(),
         ),
         body: Center(
@@ -274,6 +275,31 @@ class _MyHomePageState extends State<MathQustions>
                     answerTextController.clear();
                   },
                 ),
+                SizedBox(
+                  height: 40.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 30.0,
+                    ),
+                    Container(
+                      child: FlatButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          FontAwesomeIcons.backspace,
+                          size: 45.0,
+                        ),
+                        color: Colors.green[400],
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  ],
+                )
               ],
             );
           }),
