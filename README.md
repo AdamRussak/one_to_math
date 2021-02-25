@@ -18,15 +18,22 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Dev info
 ### Done:
+   - pluse minus qustions 
+   - create Main Screen
+   - what Number is bigger?
+
 ### in progress:
- - pluse minus qustions 
+
 ### need to add:
- - create Main Screen
- - what Number is bigger?
+
  - what Number is Next?
  - settings
     - set max number used
+    ***most add loading page and trigger shared prefrense
  - counter
     - right ansewrs
     - wrong ansewrs
     - reset counter button
+ Font should be used:
+
+ `FontAwesomeIcons.calculato`
