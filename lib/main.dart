@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
             create: (context) => SettingsBrain()),
       ],
       child: MaterialApp(
+          title: 'עומר לומדת חשבון',
           theme: ThemeData.dark(),
           initialRoute: MathStartScreen.id,
           routes: {
