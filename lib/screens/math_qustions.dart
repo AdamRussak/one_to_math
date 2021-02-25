@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:one_to_math/engine/math_brain.dart';
+import 'package:one_to_math/engine/saved_info.dart';
+import 'package:one_to_math/widgets/app_title_widget.dart';
+import 'package:one_to_math/widgets/result_counter.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:after_layout/after_layout.dart';
-import 'package:one_to_math/const.dart';
+import 'package:one_to_math/const_enums.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class MathQustions extends StatefulWidget {
-  MathQustions({this.title});
-
-  final String title;
   static const String id = 'math_qustions';
 
   @override
@@ -21,11 +22,34 @@ class _MyHomePageState extends State<MathQustions>
     with AfterLayoutMixin<MathQustions> {
   final answerTextController = TextEditingController();
   String userAnswer;
+
   bool userInput = false;
-  void checkAnsewr(int userAnswer, bool userInput) {
+  int scoreKeeper = 0;
+  int sucessInt;
+  //alert Dialog for: approve see ansewr/ wrong answer/ right answer/ see answer
+  //init the SharedPref
+  SavedInfo savedInfo = SavedInfo();
+  void tapIntoSavedInfo() async {
+    await savedInfo.initSharedPrefs();
+    setState(() {
+      sucessInt = savedInfo.prefs.getInt('prefMathCount') != null
+          ? savedInfo.prefs.getInt('prefMathCount')
+          : 0;
+      scoreKeeper = sucessInt;
+    });
+  }
+
+  void checkAnsewr(int userAnswer, bool checkInput) {
     if (userAnswer ==
             Provider.of<MathBrain>(context, listen: false).questionResult &&
-        userInput) {
+        checkInput) {
+      setState(() {
+        scoreKeeper++;
+        savedInfo.saveDataToPrefs(scoreKeeper, 'prefMathCount');
+        sucessInt = savedInfo.prefs.getInt('prefMathCount');
+      });
+
+      //Alert Dialog's
       Alert(
         context: context,
         type: AlertType.success,
@@ -36,13 +60,14 @@ class _MyHomePageState extends State<MathQustions>
         style: AlertStyle(descStyle: KmathStyle, titleStyle: KmathStyle),
         buttons: [
           DialogButton(
-            child: Text(
-              "שאלה חדשה",
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
+            child: KNewQustionIcon,
             onPressed: () {
               Navigator.pop(context);
-              Provider.of<MathBrain>(context, listen: false).getQustion();
+              Provider.of<MathBrain>(context, listen: false).getMathQustion();
+              setState(() {
+                userInput = false;
+                userAnswer = null;
+              });
             },
             width: 150,
             color: Colors.black45,
@@ -51,7 +76,7 @@ class _MyHomePageState extends State<MathQustions>
       ).show();
     } else if (userAnswer !=
             Provider.of<MathBrain>(context, listen: false).questionResult &&
-        userInput) {
+        checkInput) {
       Fluttertoast.showToast(
           msg: "תשובה לא נכונה, נסי/ה שנית",
           toastLength: Toast.LENGTH_SHORT,
@@ -60,33 +85,25 @@ class _MyHomePageState extends State<MathQustions>
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
-    } else if (!userInput) {
+    } else if (!checkInput) {
       Alert(
         context: context,
         type: AlertType.none,
-        title: ":התשובה",
-        desc: Provider.of<MathBrain>(context, listen: false)
-            .questionResult
-            .toString(),
+        title: "?!?בטוח",
+        desc: "שווה לנסות",
         style: AlertStyle(descStyle: KmathStyle, titleStyle: KmathStyle),
         buttons: [
           DialogButton(
-            child: Text(
-              "שאלה חדשה",
-              style: TextStyle(color: Colors.white, fontSize: 15),
-            ),
+            child: Icon(FontAwesomeIcons.eye),
             onPressed: () {
               Navigator.pop(context);
-              Provider.of<MathBrain>(context, listen: false).getQustion();
+              showAnswer();
             },
             width: 150,
             color: Colors.black45,
           ),
           DialogButton(
-            child: Text(
-              "חזור",
-              style: TextStyle(color: Colors.white, fontSize: 15),
-            ),
+            child: Icon(FontAwesomeIcons.undo),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -98,82 +115,149 @@ class _MyHomePageState extends State<MathQustions>
     }
   }
 
+  void showAnswer() {
+    Alert(
+      context: context,
+      type: AlertType.none,
+      title: ":התשובה",
+      desc: Provider.of<MathBrain>(context, listen: false)
+          .questionResult
+          .toString(),
+      style: AlertStyle(descStyle: KmathStyle, titleStyle: KmathStyle),
+      buttons: [
+        DialogButton(
+          child: KNewQustionIcon,
+          onPressed: () {
+            Navigator.pop(context);
+            Provider.of<MathBrain>(context, listen: false).getMathQustion();
+            setState(() {
+              scoreKeeper = 0;
+              savedInfo.saveDataToPrefs(scoreKeeper, 'prefMathCount');
+              sucessInt = savedInfo.prefs.getInt('prefMathCount');
+            });
+          },
+          width: 150,
+          color: Colors.black45,
+        )
+      ],
+    ).show();
+  }
+
   @override
+  void initState() {
+    super.initState();
+    tapIntoSavedInfo();
+  }
+
   Widget build(BuildContext context) {
-    return Consumer<MathBrain>(
-      builder: (context, mathBrain, child) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(widget.title),
-          ),
-          body: Center(
-            child: Column(
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: AppTitleWidget(),
+        ),
+        body: Center(
+          child: Consumer<MathBrain>(builder: (context, mathModel, child) {
+            return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 30.0,
+                    ),
+                    Container(
+                      child: FlatButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          FontAwesomeIcons.backspace,
+                          size: 45.0,
+                        ),
+                        color: Colors.green[400],
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 40.0,
+                ),
+                ResultCounterWidget(
+                    sucessInt: sucessInt == null ? 0 : sucessInt),
                 SizedBox(
                   height: 30.0,
                 ),
                 FlatButton(
-                  onPressed: mathBrain.getQustion,
-                  child: Text(
-                    "שאלה חדשה",
-                    style: KmathButtonTextStyle,
-                  ),
+                  onPressed: () {
+                    print('new qustion');
+                    mathModel.getMathQustion();
+                  },
+                  child: KNewQustionIcon,
                   color: Colors.blue,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                 ),
                 SizedBox(
-                  height: 100.0,
+                  height: 50.0,
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Text(
-                    mathBrain.randomNumber1 != null
-                        ? mathBrain.randomNumber1.toString()
+                    mathModel.randomNumber1 != null
+                        ? mathModel.randomNumber1.toString()
                         : "",
                     style: KmathStyle,
                   ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  Icon(mathBrain.randomBoolean
+                  KSizeBoxMath10,
+                  Icon(Provider.of<MathBrain>(context, listen: false)
+                          .randomMathBoolean
                       ? FontAwesomeIcons.plus
                       : FontAwesomeIcons.minus),
-                  SizedBox(
-                    width: 10.0,
-                  ),
+                  KSizeBoxMath10,
                   Text(
-                    mathBrain.randomNumber2 != null
-                        ? mathBrain.randomNumber2.toString()
+                    mathModel.randomNumber2 != null
+                        ? mathModel.randomNumber2.toString()
                         : "",
                     style: KmathStyle,
                   ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
+                  KSizeBoxMath10,
                   Icon(FontAwesomeIcons.equals),
-                  SizedBox(
-                    width: 10.0,
-                  ),
+                  KSizeBoxMath10,
                   SizedBox(
                     width: 65,
                     child: TextField(
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
                       controller: answerTextController,
-                      maxLength: mathBrain.maxNumber.toString().length,
+                      maxLength: Provider.of<MathBrain>(context, listen: false)
+                          .maxNumber
+                          .toString()
+                          .length,
                       maxLengthEnforced: true,
-                      enabled: mathBrain.questionResult == null ? false : true,
+                      enabled: Provider.of<MathBrain>(context, listen: false)
+                                  .questionResult ==
+                              null
+                          ? false
+                          : true,
                       style: TextStyle(
-                          color: Colors.black, fontSize: 35, height: 1.2),
+                          color: Colors.black, fontSize: 35, height: 2),
                       decoration: InputDecoration(
                           isDense: true,
                           contentPadding: EdgeInsets.all(4),
                           filled: true,
-                          fillColor: mathBrain.questionResult == null
-                              ? Colors.grey[850]
-                              : Colors.white,
+                          fillColor:
+                              Provider.of<MathBrain>(context, listen: false)
+                                          .questionResult ==
+                                      null
+                                  ? Colors.grey[850]
+                                  : Colors.white,
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: mathBrain.questionResult == null
+                              color: mathModel.questionResult == null
                                   ? Colors.grey[850]
                                   : Colors.blue,
                             ),
@@ -185,7 +269,6 @@ class _MyHomePageState extends State<MathQustions>
                       textAlign: TextAlign.left,
                       onChanged: (newText) {
                         userAnswer = newText;
-                        userInput = true;
                       },
                     ),
                   ),
@@ -195,9 +278,9 @@ class _MyHomePageState extends State<MathQustions>
                 ),
                 FlatButton(
                   textColor: Colors.white,
-                  child: Text(
-                    'בדוק תשובה',
-                    style: KmathButtonTextStyle,
+                  child: Icon(
+                    FontAwesomeIcons.cashRegister,
+                    size: 50.0,
                   ),
                   color: Colors.green,
                   shape: RoundedRectangleBorder(
@@ -205,27 +288,32 @@ class _MyHomePageState extends State<MathQustions>
                   onPressed: () {
                     var intAnswer;
                     //The user picked true.
-                    if (userAnswer == null) {
+                    if (answerTextController.text == null ||
+                        answerTextController.text == "") {
                       intAnswer = 1;
+                      userInput = false;
                     } else {
-                      intAnswer = int.parse(userAnswer);
+                      intAnswer = int.parse(answerTextController.text);
+                      userInput = true;
                     }
-                    checkAnsewr(intAnswer == null ? 0 : intAnswer, userInput);
+                    checkAnsewr(
+                        intAnswer == null || answerTextController.text == ""
+                            ? 0
+                            : intAnswer,
+                        userInput);
                     answerTextController.clear();
-                    userInput = false;
                   },
                 ),
               ],
-            ),
-          ),
-        );
-      },
-    );
+            );
+          }),
+        ));
   }
 
   @override
   void afterFirstLayout(BuildContext context) {
     // Calling the same function "after layout" to resolve the issue.
-    Provider.of<MathBrain>(context, listen: false).getQustion();
+    Provider.of<MathBrain>(context, listen: false)
+        .loadSavedInt(KMaxInt, MathTask.math);
   }
 }

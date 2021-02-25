@@ -23,15 +23,7 @@ class MyApp extends StatelessWidget {
             create: (context) => SettingsBrain()),
       ],
       child: MaterialApp(
-<<<<<<< HEAD
           title: 'עומר לומדת חשבון',
-          theme: ThemeData.dark(),
-          initialRoute: MathStartScreen.id,
-          routes: {
-            MathStartScreen.id: (context) => MathStartScreen(),
-            MathQustions.id: (context) =>
-                MathQustions(title: 'עומר לומדת חשבון'),
-=======
           theme: ThemeData.dark(),
           initialRoute: MathStartScreen.id,
           routes: {
@@ -40,7 +32,6 @@ class MyApp extends StatelessWidget {
             MathQustions.id: (context) => MathQustions(),
             SettingsScreen.id: (context) => SettingsScreen(),
             WhoIsBiggerScreen.id: (context) => WhoIsBiggerScreen(),
->>>>>>> 4cf1eece119a2753a5071585d9234d5bb643f9be
           }),
     );
   }

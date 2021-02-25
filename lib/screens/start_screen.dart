@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import 'package:flutter/material.dart';
-
-class MathStartScreen extends StatefulWidget {
-  static const String id = 'start_screen';
-=======
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,17 +14,10 @@ import 'package:provider/provider.dart';
 class MathStartScreen extends StatefulWidget {
   static const String id = 'start_screen';
 
->>>>>>> 4cf1eece119a2753a5071585d9234d5bb643f9be
   @override
   _MathStartScreen createState() => _MathStartScreen();
 }
 
-<<<<<<< HEAD
-class _MathStartScreen extends State<MathStartScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-=======
 class _MathStartScreen extends State<MathStartScreen>
     with AfterLayoutMixin<MathStartScreen> {
   var getVars = "null";
@@ -126,6 +113,5 @@ class _MathStartScreen extends State<MathStartScreen>
     Provider.of<SettingsBrain>(context, listen: false).setStartString(KGender);
     getVars = Provider.of<SettingsBrain>(context, listen: false).getuser();
     getLocationData();
->>>>>>> 4cf1eece119a2753a5071585d9234d5bb643f9be
   }
 }
