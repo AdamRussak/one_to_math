@@ -39,4 +39,5 @@ enum MathTask {
   math,
   lesOrMore,
   multy,
+  settings,
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_number_picker/flutter_number_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:one_to_math/const_enums.dart';
 import 'package:one_to_math/engine/math_brain.dart';
@@ -115,31 +114,50 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 //TODO: set the Pref Sherd to save the INT for next usage
                 Consumer<MathBrain>(builder: (context, mathBrain, child) {
-                  var newInt;
-                  return SetAppSettings(
-                    popUpWidget: Column(
+                  mathBrain.loadSavedInt(KMaxInt, MathTask.settings);
+                  int currentInt = mathBrain.maxNumber;
+                  return Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(20.0),
+                    height: 120,
+                    width: 205,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.blue,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Column(
                       children: [
-                        CustomNumberPicker(
-                          initialValue: 10,
-                          maxValue: 1000000,
-                          minValue: 10,
-                          step: 10,
-                          onValue: (value) {
-                            newInt = value;
-                          },
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(FontAwesomeIcons.angleDoubleUp),
+                              iconSize: 35.0,
+                              onPressed: () {
+                                currentInt =
+                                    currentInt >= 1000 ? 1000 : currentInt + 10;
+                                mathBrain.updateMaxInt(currentInt, KMaxInt);
+                              },
+                            ),
+                            Text(
+                              mathBrain.maxNumber.toString(),
+                              style: TextStyle(fontSize: 35.0),
+                            ),
+                            IconButton(
+                              iconSize: 35.0,
+                              icon: Icon(FontAwesomeIcons.angleDoubleDown),
+                              onPressed: () {
+                                currentInt =
+                                    currentInt <= 10 ? 10 : currentInt - 10;
+                                mathBrain.updateMaxInt(currentInt, KMaxInt);
+                              },
+                            ),
+                          ],
                         ),
-                        FlatButton(
-                          child: Text('שמור'),
-                          onPressed: () {
-                            mathBrain.updateMaxInt(newInt, KMaxInt);
-                            Navigator.pop(context);
-                          },
-                        ),
+                        Text("תוצאה מקסימלית")
                       ],
                     ),
-                    popText: ":בחר/י",
-                    selctedIcon: FontAwesomeIcons.smileBeam,
-                    buttonText: "מספר מקסימלי",
                   );
                 }),
                 Consumer<SettingsBrain>(
