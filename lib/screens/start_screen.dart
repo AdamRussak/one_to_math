@@ -21,14 +21,6 @@ class MathStartScreen extends StatefulWidget {
 class _MathStartScreen extends State<MathStartScreen>
     with AfterLayoutMixin<MathStartScreen> {
   var getVars = "null";
-  // void getLocationData() {
-  //   while (getVars == "null") {
-  //     getVars = Provider.of<SettingsBrain>(context, listen: false).getuser();
-  //     print(getVars);
-  //   }
-  //   print('afterLoop');
-  //   print(getVars);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +103,6 @@ class _MathStartScreen extends State<MathStartScreen>
   void afterFirstLayout(BuildContext context) {
     // Calling the same function "after layout" to resolve the issue.
     Provider.of<SettingsBrain>(context, listen: false).setStartString(KGender);
-    getVars = Provider.of<SettingsBrain>(context, listen: false).getuser();
-    // getLocationData();
+    Provider.of<SettingsBrain>(context, listen: false).getuser();
   }
 }
