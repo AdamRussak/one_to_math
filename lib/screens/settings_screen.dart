@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:one_to_math/const_enums.dart';
 import 'package:one_to_math/engine/math_brain.dart';
 import 'package:one_to_math/engine/settings_brain.dart';
+import 'package:one_to_math/widgets/AppIconButtons.dart';
 import 'package:one_to_math/widgets/app_title_widget.dart';
 import 'package:one_to_math/widgets/set_app_settings.dart';
 import 'package:provider/provider.dart';
@@ -39,19 +40,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SizedBox(
                   width: 30.0,
                 ),
-                Container(
-                  child: FlatButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      FontAwesomeIcons.backspace,
-                      size: 45.0,
-                    ),
-                    color: Colors.green[400],
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                AppIconButtons(
+                  presWidget: () {
+                    Navigator.pop(context);
+                  },
+                  buttonIcon: Icon(
+                    FontAwesomeIcons.backspace,
+                    size: 45.0,
                   ),
+                  iconColors: Colors.green[400],
                 ),
               ],
             ),
@@ -61,7 +58,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SizedBox(
               height: 100.0,
             ),
-            //TODO: add Consumer and set variaables for the sttings
             Consumer<SettingsBrain>(builder: (context, settingBrain, child) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -72,6 +68,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         children: [
                           Icon(
                             FontAwesomeIcons.mars,
+                            color: Colors.blue[300],
                             size: 60.0,
                           ),
                           Radio(
@@ -90,6 +87,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         children: [
                           Icon(
                             FontAwesomeIcons.venus,
+                            color: Colors.blue[300],
                             size: 60.0,
                           ),
                           Radio(
@@ -112,7 +110,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                //TODO: set the Pref Sherd to save the INT for next usage
                 Consumer<MathBrain>(builder: (context, mathBrain, child) {
                   mathBrain.loadSavedInt(KMaxInt, MathTask.settings);
                   int currentInt = mathBrain.maxNumber;
@@ -121,18 +118,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     padding: EdgeInsets.all(20.0),
                     height: 120,
                     width: 205,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.blue,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
                     child: Column(
                       children: [
                         Row(
                           children: [
                             IconButton(
-                              icon: Icon(FontAwesomeIcons.angleDoubleUp),
+                              icon: Icon(
+                                FontAwesomeIcons.angleDoubleUp,
+                                color: Colors.blue[300],
+                              ),
                               iconSize: 35.0,
                               onPressed: () {
                                 currentInt =
@@ -142,11 +136,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             ),
                             Text(
                               mathBrain.maxNumber.toString(),
-                              style: TextStyle(fontSize: 35.0),
+                              style: TextStyle(
+                                  fontSize: 35.0, color: Colors.blue[300]),
                             ),
                             IconButton(
                               iconSize: 35.0,
-                              icon: Icon(FontAwesomeIcons.angleDoubleDown),
+                              icon: Icon(
+                                FontAwesomeIcons.angleDoubleDown,
+                                color: Colors.blue[300],
+                              ),
                               onPressed: () {
                                 currentInt =
                                     currentInt <= 10 ? 10 : currentInt - 10;
@@ -155,7 +153,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             ),
                           ],
                         ),
-                        Text("תוצאה מקסימלית")
+                        Text(
+                          "תוצאה מקסימלית",
+                          style: TextStyle(color: Colors.blue[300]),
+                        )
                       ],
                     ),
                   );
@@ -176,19 +177,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           print(newText);
                         },
                       ),
-                      FlatButton(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text('שמור'),
-                          ],
-                        ),
-                        onPressed: () {
+                      AppIconButtons(
+                        presWidget: () {
                           settingBrain.updateName(
                               nameTextController.text, 'prefUserName');
                           nameTextController.clear();
                           Navigator.pop(context);
                         },
+                        buttonIcon: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text('שמור'),
+                          ],
+                        ),
+                        iconColors: Colors.white,
                       ),
                     ]),
                     popText: ":שם",

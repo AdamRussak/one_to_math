@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:one_to_math/engine/math_brain.dart';
 import 'package:one_to_math/engine/saved_info.dart';
+import 'package:one_to_math/widgets/AppIconButtons.dart';
 import 'package:one_to_math/widgets/app_title_widget.dart';
 import 'package:one_to_math/widgets/result_counter.dart';
 import 'package:provider/provider.dart';
@@ -168,19 +169,15 @@ class _MyHomePageState extends State<MathQustions>
                       SizedBox(
                         width: 30.0,
                       ),
-                      Container(
-                        child: FlatButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(
-                            FontAwesomeIcons.backspace,
-                            size: 45.0,
-                          ),
-                          color: Colors.green[400],
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                      AppIconButtons(
+                        presWidget: () {
+                          Navigator.pop(context);
+                        },
+                        buttonIcon: Icon(
+                          FontAwesomeIcons.backspace,
+                          size: 45.0,
                         ),
+                        iconColors: Colors.green,
                       ),
                     ],
                   ),
@@ -195,16 +192,8 @@ class _MyHomePageState extends State<MathQustions>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      FlatButton(
-                        textColor: Colors.white,
-                        child: Icon(
-                          FontAwesomeIcons.cashRegister,
-                          size: 50.0,
-                        ),
-                        color: Colors.green,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        onPressed: () {
+                      AppIconButtons(
+                        presWidget: () {
                           var intAnswer;
                           //The user picked true.
                           if (answerTextController.text == null ||
@@ -223,19 +212,22 @@ class _MyHomePageState extends State<MathQustions>
                               userInput);
                           answerTextController.clear();
                         },
+                        buttonIcon: Icon(
+                          FontAwesomeIcons.cashRegister,
+                          size: 45.0,
+                        ),
+                        iconColors: Colors.green,
                       ),
                       SizedBox(
                         width: 20.0,
                       ),
-                      FlatButton(
-                        onPressed: () {
+                      AppIconButtons(
+                        presWidget: () {
                           print('new qustion');
                           mathModel.getMathQustion();
                         },
-                        child: KNewQustionIcon,
-                        color: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
+                        buttonIcon: KNewQustionIcon,
+                        iconColors: Colors.blue,
                       ),
                     ],
                   ),
@@ -276,7 +268,6 @@ class _MyHomePageState extends State<MathQustions>
                                 .maxNumber
                                 .toString()
                                 .length,
-                        maxLengthEnforced: true,
                         enabled: Provider.of<MathBrain>(context, listen: false)
                                     .questionResult ==
                                 null

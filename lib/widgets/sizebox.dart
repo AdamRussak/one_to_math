@@ -17,7 +17,7 @@ class ButtonIcons extends StatelessWidget {
             SizedBox(
               width: 10.0,
             ),
-            Text('OR'),
+            Text('או'),
             SizedBox(
               width: 10.0,
             ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:one_to_math/engine/math_brain.dart';
 import 'package:one_to_math/engine/saved_info.dart';
+import 'package:one_to_math/widgets/AppIconButtons.dart';
 import 'package:one_to_math/widgets/app_title_widget.dart';
 import 'package:one_to_math/widgets/result_counter.dart';
 import 'package:provider/provider.dart';
@@ -151,157 +152,158 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: AppTitleWidget(),
-        ),
-        body: Center(
-          child: Consumer<MathBrain>(builder: (context, mathModel, child) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 30.0,
-                    ),
-                    Container(
-                      child: FlatButton(
-                        onPressed: () {
+    return SafeArea(
+      child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: AppTitleWidget(),
+          ),
+          body: Center(
+            child: Consumer<MathBrain>(builder: (context, mathModel, child) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 30.0,
+                      ),
+                      AppIconButtons(
+                        presWidget: () {
                           Navigator.pop(context);
                         },
-                        child: Icon(
+                        buttonIcon: Icon(
                           FontAwesomeIcons.backspace,
                           size: 45.0,
                         ),
-                        color: Colors.green[400],
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
+                        iconColors: Colors.green[400],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 40.0,
+                  ),
+                  ResultCounterWidget(
+                      sucessInt: sucessInt == null ? 0 : sucessInt),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AppIconButtons(
+                        presWidget: () {
+                          var intAnswer;
+                          //The user picked true.
+                          if (answerTextController.text == null ||
+                              answerTextController.text == "") {
+                            intAnswer = 1;
+                            userInput = false;
+                          } else {
+                            intAnswer = int.parse(answerTextController.text);
+                            userInput = true;
+                          }
+                          checkAnsewr(
+                              intAnswer == null ||
+                                      answerTextController.text == ""
+                                  ? 0
+                                  : intAnswer,
+                              userInput);
+                          answerTextController.clear();
+                        },
+                        buttonIcon: Icon(
+                          FontAwesomeIcons.cashRegister,
+                          size: 45.0,
+                        ),
+                        iconColors: Colors.green[400],
+                      ),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      AppIconButtons(
+                        presWidget: () {
+                          print('new qustion');
+                          mathModel.getMultiplyRandomInt();
+                        },
+                        buttonIcon: KNewQustionIcon,
+                        iconColors: Colors.blue,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 50.0,
+                  ),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Text(
+                      mathModel.randomNumber1 != null
+                          ? mathModel.randomNumber1.toString()
+                          : "",
+                      style: KmathStyle,
+                    ),
+                    KSizeBoxMath10,
+                    Icon(
+                      FontAwesomeIcons.times,
+                      size: 45.0,
+                    ),
+                    KSizeBoxMath10,
+                    Text(
+                      mathModel.randomNumber2 != null
+                          ? mathModel.randomNumber2.toString()
+                          : "",
+                      style: KmathStyle,
+                    ),
+                    KSizeBoxMath10,
+                    Icon(FontAwesomeIcons.equals),
+                    KSizeBoxMath10,
+                    SizedBox(
+                      width: 65,
+                      child: TextField(
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        controller: answerTextController,
+                        maxLength: mathModel.maxNumber.toString().length,
+                        enabled: mathModel.multyResult == null ? false : true,
+                        style: TextStyle(
+                            color: Colors.black, fontSize: 35, height: 2),
+                        decoration: InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.all(4),
+                            filled: true,
+                            fillColor: mathModel.multyResult == null
+                                ? Colors.grey[850]
+                                : Colors.white,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: mathModel.multyResult == null
+                                    ? Colors.grey[850]
+                                    : Colors.blue,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5),
+                              ),
+                            )),
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.left,
+                        onChanged: (newText) {
+                          userAnswer = newText;
+                        },
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: 40.0,
-                ),
-                ResultCounterWidget(
-                    sucessInt: sucessInt == null ? 0 : sucessInt),
-                SizedBox(
-                  height: 30.0,
-                ),
-                FlatButton(
-                  onPressed: () {
-                    print('new qustion');
-                    mathModel.getMultiplyRandomInt();
-                    print(mathModel.randomNumber1);
-                    print(mathModel.randomNumber2);
-                    print(mathModel.multyResult);
-                  },
-                  child: KNewQustionIcon,
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                ),
-                SizedBox(
-                  height: 50.0,
-                ),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text(
-                    mathModel.randomNumber1 != null
-                        ? mathModel.randomNumber1.toString()
-                        : "",
-                    style: KmathStyle,
-                  ),
-                  KSizeBoxMath10,
-                  Icon(
-                    FontAwesomeIcons.times,
-                    size: 45.0,
-                  ),
-                  KSizeBoxMath10,
-                  Text(
-                    mathModel.randomNumber2 != null
-                        ? mathModel.randomNumber2.toString()
-                        : "",
-                    style: KmathStyle,
-                  ),
-                  KSizeBoxMath10,
-                  Icon(FontAwesomeIcons.equals),
-                  KSizeBoxMath10,
+                  ]),
                   SizedBox(
-                    width: 65,
-                    child: TextField(
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly
-                      ],
-                      controller: answerTextController,
-                      maxLength: mathModel.maxNumber.toString().length,
-                      maxLengthEnforced: true,
-                      enabled: mathModel.multyResult == null ? false : true,
-                      style: TextStyle(
-                          color: Colors.black, fontSize: 35, height: 2),
-                      decoration: InputDecoration(
-                          isDense: true,
-                          contentPadding: EdgeInsets.all(4),
-                          filled: true,
-                          fillColor: mathModel.multyResult == null
-                              ? Colors.grey[850]
-                              : Colors.white,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: mathModel.multyResult == null
-                                  ? Colors.grey[850]
-                                  : Colors.blue,
-                            ),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(5),
-                            ),
-                          )),
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.left,
-                      onChanged: (newText) {
-                        userAnswer = newText;
-                      },
-                    ),
+                    height: 50.0,
                   ),
-                ]),
-                SizedBox(
-                  height: 50.0,
-                ),
-                FlatButton(
-                  textColor: Colors.white,
-                  child: Icon(
-                    FontAwesomeIcons.cashRegister,
-                    size: 50.0,
+                  SizedBox(
+                    height: 150.0,
                   ),
-                  color: Colors.green,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  onPressed: () {
-                    var intAnswer;
-                    //The user picked true.
-                    if (answerTextController.text == null ||
-                        answerTextController.text == "") {
-                      intAnswer = 1;
-                      userInput = false;
-                    } else {
-                      intAnswer = int.parse(answerTextController.text);
-                      userInput = true;
-                    }
-                    checkAnsewr(
-                        intAnswer == null || answerTextController.text == ""
-                            ? 0
-                            : intAnswer,
-                        userInput);
-                    answerTextController.clear();
-                  },
-                ),
-              ],
-            );
-          }),
-        ));
+                ],
+              );
+            }),
+          )),
+    );
   }
 
   @override

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'AppIconButtons.dart';
+
 class SetAppSettings extends StatelessWidget {
   SetAppSettings(
       {@required this.selctedIcon,
@@ -15,7 +17,6 @@ class SetAppSettings extends StatelessWidget {
   final Widget popUpWidget;
 
   @override
-  //TODO: add a retunr bottun at the bottom
   Widget build(BuildContext context) {
     final SimpleDialog dialog = SimpleDialog(
       backgroundColor: Colors.blue,
@@ -29,34 +30,23 @@ class SetAppSettings extends StatelessWidget {
         popUpWidget,
       ],
     );
-    return FlatButton(
-      onPressed: () {
+    return AppIconButtons(
+      presWidget: () {
         showDialog<void>(context: context, builder: (context) => dialog);
       },
-      child: Container(
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(20.0),
-        height: 120,
-        width: 150,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.blue,
-          ),
-          borderRadius: BorderRadius.circular(10.0),
+      buttonIcon: Column(children: [
+        Icon(
+          selctedIcon,
+          size: 40.0,
         ),
-        child: Column(children: [
-          Icon(
-            selctedIcon,
-            size: 40.0,
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          Text(
-            buttonText,
-          ),
-        ]),
-      ),
+        SizedBox(
+          height: 10.0,
+        ),
+        Text(
+          buttonText,
+        ),
+      ]),
+      iconColors: Colors.blue[300],
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:one_to_math/const_enums.dart';
 import 'package:one_to_math/engine/math_brain.dart';
 import 'package:one_to_math/engine/saved_info.dart';
+import 'package:one_to_math/widgets/AppIconButtons.dart';
 import 'package:one_to_math/widgets/app_title_widget.dart';
 import 'package:one_to_math/widgets/result_counter.dart';
 import 'package:provider/provider.dart';
@@ -158,19 +159,15 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                   SizedBox(
                     width: 30.0,
                   ),
-                  Container(
-                    child: FlatButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        FontAwesomeIcons.backspace,
-                        size: 45.0,
-                      ),
-                      color: Colors.green[400],
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                  AppIconButtons(
+                    presWidget: () {
+                      Navigator.pop(context);
+                    },
+                    buttonIcon: Icon(
+                      FontAwesomeIcons.backspace,
+                      size: 45.0,
                     ),
+                    iconColors: Colors.green[400],
                   ),
                 ],
               ),
@@ -186,30 +183,26 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FlatButton(
-                    onPressed: () {
+                  AppIconButtons(
+                    presWidget: () {
                       setState(() {
                         userAnswer = Answer.pass;
                       });
                       checkAnsewr(userAnswer);
                     },
-                    child: Icon(
+                    buttonIcon: Icon(
                       FontAwesomeIcons.exchangeAlt,
                       size: 45.0,
                     ),
-                    color: Colors.redAccent,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                    iconColors: Colors.redAccent,
                   ),
                   SizedBox(
                     width: 30.0,
                   ),
-                  FlatButton(
-                    onPressed: mathBrain.getLessOrMoreQustion,
-                    child: KNewQustionIcon,
-                    color: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                  AppIconButtons(
+                    presWidget: mathBrain.getLessOrMoreQustion,
+                    buttonIcon: KNewQustionIcon,
+                    iconColors: Colors.blue[300],
                   ),
                 ],
               ),
