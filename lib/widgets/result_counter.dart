@@ -10,7 +10,7 @@ class ResultCounterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       Container(
           padding: EdgeInsets.all(10.0),
           decoration: BoxDecoration(

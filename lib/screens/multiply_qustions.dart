@@ -178,7 +178,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                           FontAwesomeIcons.backspace,
                           size: 45.0,
                         ),
-                        iconColors: Colors.green[400],
+                        iconColors: Colors.red[300],
                       ),
                     ],
                   ),

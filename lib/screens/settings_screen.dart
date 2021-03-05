@@ -48,7 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     FontAwesomeIcons.backspace,
                     size: 45.0,
                   ),
-                  iconColors: Colors.green[400],
+                  iconColors: Colors.red[300],
                 ),
               ],
             ),

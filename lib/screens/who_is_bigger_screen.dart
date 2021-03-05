@@ -167,7 +167,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                       FontAwesomeIcons.backspace,
                       size: 45.0,
                     ),
-                    iconColors: Colors.green[400],
+                    iconColors: Colors.red[300],
                   ),
                 ],
               ),

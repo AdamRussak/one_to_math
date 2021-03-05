@@ -177,7 +177,7 @@ class _MyHomePageState extends State<MathQustions>
                           FontAwesomeIcons.backspace,
                           size: 45.0,
                         ),
-                        iconColors: Colors.green,
+                        iconColors: Colors.red[300],
                       ),
                     ],
                   ),
