@@ -163,10 +163,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                     presWidget: () {
                       Navigator.pop(context);
                     },
-                    buttonIcon: Icon(
-                      FontAwesomeIcons.backspace,
-                      size: 45.0,
-                    ),
+                    buttonIcon: KPopIcon,
                     iconColors: Colors.red[300],
                   ),
                 ],

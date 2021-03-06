@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+//save Prefs Const
 const KMaxInt = 'prefMaxInt';
 const KGender = 'prefGender';
+
 const KmathStyle = TextStyle(
   fontSize: 50.0,
   fontWeight: FontWeight.bold,
@@ -23,6 +25,11 @@ const KNewQustionIcon = Icon(
 );
 const KSizeBoxMath10 = SizedBox(
   width: 10.0,
+);
+
+const KPopIcon = Icon(
+  FontAwesomeIcons.backspace,
+  size: 45.0,
 );
 
 enum Answer {

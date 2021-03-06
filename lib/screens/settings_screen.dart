@@ -44,10 +44,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   presWidget: () {
                     Navigator.pop(context);
                   },
-                  buttonIcon: Icon(
-                    FontAwesomeIcons.backspace,
-                    size: 45.0,
-                  ),
+                  buttonIcon: KPopIcon,
                   iconColors: Colors.red[300],
                 ),
               ],
