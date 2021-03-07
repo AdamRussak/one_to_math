@@ -258,7 +258,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                     Icon(FontAwesomeIcons.equals),
                     KSizeBoxMath10,
                     SizedBox(
-                      width: size.width * 0.1,
+                      width: size.width * 0.15,
                       child: TextField(
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly
