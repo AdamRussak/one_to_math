@@ -152,7 +152,10 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
   }
 
   Widget build(BuildContext context) {
-    return SafeArea(
+    var size = MediaQuery.of(context).size;
+    return Padding(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
@@ -180,7 +183,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                     ],
                   ),
                   SizedBox(
-                    height: 40.0,
+                    height: size.width * 0.05,
                   ),
                   ResultCounterWidget(
                       sucessInt: sucessInt == null ? 0 : sucessInt),

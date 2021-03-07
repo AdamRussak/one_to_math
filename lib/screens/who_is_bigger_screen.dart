@@ -142,6 +142,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
   }
 
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Consumer<MathBrain>(builder: (context, mathBrain, child) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -169,7 +170,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                 ],
               ),
               SizedBox(
-                height: 40.0,
+                height: size.width * 0.05,
               ),
               ResultCounterWidget(
                 sucessInt: sucessInt == null ? 0 : sucessInt,

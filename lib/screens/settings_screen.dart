@@ -22,6 +22,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   IconData dropdownValue = FontAwesomeIcons.venus;
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -50,7 +51,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ],
             ),
             SizedBox(
-              height: 40.0,
+              height: size.width * 0.05,
             ),
             SizedBox(
               height: 100.0,
