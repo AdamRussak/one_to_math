@@ -183,7 +183,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                     ],
                   ),
                   SizedBox(
-                    height: size.width * 0.05,
+                    height: size.height * 0.025,
                   ),
                   ResultCounterWidget(
                       sucessInt: sucessInt == null ? 0 : sucessInt),

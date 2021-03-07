@@ -180,7 +180,7 @@ class _MyHomePageState extends State<MathQustions>
                     ],
                   ),
                   SizedBox(
-                    height: size.height * 0.05,
+                    height: size.height * 0.025,
                   ),
                   ResultCounterWidget(
                       sucessInt: sucessInt == null ? 0 : sucessInt),
