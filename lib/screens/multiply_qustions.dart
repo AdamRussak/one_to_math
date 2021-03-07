@@ -171,7 +171,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 30.0,
+                        width: size.width * 0.05,
                       ),
                       AppIconButtons(
                         presWidget: () {
@@ -188,7 +188,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                   ResultCounterWidget(
                       sucessInt: sucessInt == null ? 0 : sucessInt),
                   SizedBox(
-                    height: 30.0,
+                    height: size.height * 0.05,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -220,7 +220,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                         iconColors: Colors.green[400],
                       ),
                       SizedBox(
-                        width: 20.0,
+                        width: size.width * 0.05,
                       ),
                       AppIconButtons(
                         presWidget: () {
@@ -233,7 +233,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                     ],
                   ),
                   SizedBox(
-                    height: 50.0,
+                    height: size.height * 0.05,
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Text(
@@ -258,7 +258,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                     Icon(FontAwesomeIcons.equals),
                     KSizeBoxMath10,
                     SizedBox(
-                      width: 65,
+                      width: size.width * 0.1,
                       child: TextField(
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly
@@ -294,10 +294,10 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                     ),
                   ]),
                   SizedBox(
-                    height: 50.0,
+                    height: size.height * 0.05,
                   ),
                   SizedBox(
-                    height: 150.0,
+                    height: size.width * 0.1,
                   ),
                 ],
               );

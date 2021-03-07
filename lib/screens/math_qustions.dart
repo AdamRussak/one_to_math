@@ -180,12 +180,12 @@ class _MyHomePageState extends State<MathQustions>
                     ],
                   ),
                   SizedBox(
-                    height: 40.0,
+                    height: size.height * 0.05,
                   ),
                   ResultCounterWidget(
                       sucessInt: sucessInt == null ? 0 : sucessInt),
                   SizedBox(
-                    height: 30.0,
+                    height: size.height * 0.05,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -217,7 +217,7 @@ class _MyHomePageState extends State<MathQustions>
                         iconColors: Colors.green,
                       ),
                       SizedBox(
-                        width: 20.0,
+                        width: size.width * 0.1,
                       ),
                       AppIconButtons(
                         presWidget: () {
@@ -230,7 +230,7 @@ class _MyHomePageState extends State<MathQustions>
                     ],
                   ),
                   SizedBox(
-                    height: 50.0,
+                    height: size.height * 0.05,
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Text(
@@ -255,7 +255,7 @@ class _MyHomePageState extends State<MathQustions>
                     Icon(FontAwesomeIcons.equals),
                     KSizeBoxMath10,
                     SizedBox(
-                      width: 65,
+                      width: size.width * 0.2,
                       child: TextField(
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly
@@ -302,7 +302,7 @@ class _MyHomePageState extends State<MathQustions>
                     ),
                   ]),
                   SizedBox(
-                    height: 150.0,
+                    height: size.height * 0.1,
                   ),
                 ],
               );

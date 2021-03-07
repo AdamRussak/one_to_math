@@ -158,7 +158,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: 30.0,
+                    width: size.width * 0.05,
                   ),
                   AppIconButtons(
                     presWidget: () {
@@ -176,7 +176,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                 sucessInt: sucessInt == null ? 0 : sucessInt,
               ),
               SizedBox(
-                height: 30.0,
+                height: size.height * 0.05,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -195,7 +195,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                     iconColors: Colors.redAccent,
                   ),
                   SizedBox(
-                    width: 30.0,
+                    width: size.width * 0.05,
                   ),
                   AppIconButtons(
                     presWidget: mathBrain.getLessOrMoreQustion,
@@ -205,7 +205,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                 ],
               ),
               SizedBox(
-                height: 50.0,
+                height: size.width * 0.05,
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Text(
@@ -215,7 +215,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                   style: KMoreOrLessTextStyle,
                 ),
                 SizedBox(
-                  width: 30.0,
+                  width: size.width * 0.05,
                 ),
                 Column(
                   children: [
@@ -233,7 +233,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                       },
                     ),
                     SizedBox(
-                      height: 15.0,
+                      height: size.height * 0.015,
                     ),
                     IconButton(
                       color: Colors.amber,
@@ -249,7 +249,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                       },
                     ),
                     SizedBox(
-                      height: 15.0,
+                      height: size.height * 0.015,
                     ),
                     IconButton(
                       color: Colors.indigoAccent,
@@ -267,7 +267,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                   ],
                 ),
                 SizedBox(
-                  width: 30.0,
+                  width: size.width * 0.05,
                 ),
                 Text(
                   mathBrain.randomNumber2 != null
