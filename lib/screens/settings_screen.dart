@@ -23,6 +23,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    // Height (without SafeArea)
+    double height1 = size.height -
+        MediaQuery.of(context).padding.top -
+        MediaQuery.of(context).padding.bottom;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -33,13 +37,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: 80.0,
+              height: height1 * 0.025,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: 30.0,
+                  width: size.width * 0.05,
                 ),
                 AppIconButtons(
                   presWidget: () {
@@ -54,7 +58,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               height: size.width * 0.05,
             ),
             SizedBox(
-              height: 100.0,
+              height: height1 * 0.05,
             ),
             Consumer<SettingsBrain>(builder: (context, settingBrain, child) {
               return Row(
@@ -79,7 +83,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ],
                       ),
                       SizedBox(
-                        width: 15.0,
+                        width: size.width * 0.05,
                       ),
                       Column(
                         children: [
@@ -103,9 +107,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               );
             }),
             SizedBox(
-              height: 50.0,
+              height: height1 * 0.05,
             ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Consumer<MathBrain>(builder: (context, mathBrain, child) {
@@ -113,12 +118,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   int currentInt = mathBrain.maxNumber;
                   return Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.all(20.0),
-                    height: 120,
-                    width: 205,
+                    padding: EdgeInsets.all(10.0),
+                    height: height1 * 0.15,
+                    width: size.width * 0.45,
                     child: Column(
                       children: [
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
                               icon: Icon(
@@ -164,6 +170,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   return SetAppSettings(
                     popUpWidget: Column(children: [
                       TextField(
+                        autofocus: true,
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
                               RegExp('[\u0590-\u05fe]')),

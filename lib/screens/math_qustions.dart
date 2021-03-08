@@ -144,14 +144,26 @@ class _MyHomePageState extends State<MathQustions>
     ).show();
   }
 
+  var inputFieldNode;
   @override
   void initState() {
     super.initState();
     tapIntoSavedInfo();
+    inputFieldNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    inputFieldNode.dispose();
+    super.dispose();
   }
 
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    // Height (without SafeArea)
+    double height1 = size.height -
+        MediaQuery.of(context).padding.top -
+        MediaQuery.of(context).padding.bottom;
     return Padding(
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -180,12 +192,12 @@ class _MyHomePageState extends State<MathQustions>
                     ],
                   ),
                   SizedBox(
-                    height: size.height * 0.025,
+                    height: height1 * 0.025,
                   ),
                   ResultCounterWidget(
                       sucessInt: sucessInt == null ? 0 : sucessInt),
                   SizedBox(
-                    height: size.height * 0.05,
+                    height: height1 * 0.05,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -230,7 +242,7 @@ class _MyHomePageState extends State<MathQustions>
                     ],
                   ),
                   SizedBox(
-                    height: size.height * 0.05,
+                    height: height1 * 0.05,
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Text(
@@ -257,6 +269,7 @@ class _MyHomePageState extends State<MathQustions>
                     SizedBox(
                       width: size.width * 0.2,
                       child: TextField(
+                        autofocus: true,
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly
                         ],
@@ -302,7 +315,7 @@ class _MyHomePageState extends State<MathQustions>
                     ),
                   ]),
                   SizedBox(
-                    height: size.height * 0.1,
+                    height: height1 * 0.1,
                   ),
                 ],
               );
@@ -313,6 +326,7 @@ class _MyHomePageState extends State<MathQustions>
 
   @override
   void afterFirstLayout(BuildContext context) {
+    print(MediaQuery.of(context).size);
     // Calling the same function "after layout" to resolve the issue.
     Provider.of<MathBrain>(context, listen: false)
         .loadSavedInt(KMaxInt, MathTask.math);

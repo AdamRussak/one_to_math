@@ -143,6 +143,10 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
 
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    // Height (without SafeArea)
+    double height1 = size.height -
+        MediaQuery.of(context).padding.top -
+        MediaQuery.of(context).padding.bottom;
     return Consumer<MathBrain>(builder: (context, mathBrain, child) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -151,6 +155,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
           title: AppTitleWidget(),
         ),
         body: Center(
+          heightFactor: 0.8,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -170,13 +175,13 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                 ],
               ),
               SizedBox(
-                height: size.width * 0.05,
+                height: height1 * 0.05,
               ),
               ResultCounterWidget(
                 sucessInt: sucessInt == null ? 0 : sucessInt,
               ),
               SizedBox(
-                height: size.height * 0.05,
+                height: height1 * 0.05,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -205,7 +210,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                 ],
               ),
               SizedBox(
-                height: size.width * 0.05,
+                height: height1 * 0.05,
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Text(
@@ -233,7 +238,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                       },
                     ),
                     SizedBox(
-                      height: size.height * 0.015,
+                      height: height1 * 0.015,
                     ),
                     IconButton(
                       color: Colors.amber,
@@ -249,7 +254,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                       },
                     ),
                     SizedBox(
-                      height: size.height * 0.015,
+                      height: height1 * 0.015,
                     ),
                     IconButton(
                       color: Colors.indigoAccent,

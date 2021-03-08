@@ -153,6 +153,10 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
 
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    // Height (without SafeArea)
+    double height1 = size.height -
+        MediaQuery.of(context).padding.top -
+        MediaQuery.of(context).padding.bottom;
     return Padding(
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -183,12 +187,12 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                     ],
                   ),
                   SizedBox(
-                    height: size.height * 0.025,
+                    height: height1 * 0.025,
                   ),
                   ResultCounterWidget(
                       sucessInt: sucessInt == null ? 0 : sucessInt),
                   SizedBox(
-                    height: size.height * 0.05,
+                    height: height1 * 0.05,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -233,7 +237,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                     ],
                   ),
                   SizedBox(
-                    height: size.height * 0.05,
+                    height: height1 * 0.05,
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Text(
@@ -260,6 +264,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                     SizedBox(
                       width: size.width * 0.15,
                       child: TextField(
+                        autofocus: true,
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly
                         ],
@@ -294,10 +299,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                     ),
                   ]),
                   SizedBox(
-                    height: size.height * 0.05,
-                  ),
-                  SizedBox(
-                    height: size.width * 0.1,
+                    height: height1 * 0.05,
                   ),
                 ],
               );
