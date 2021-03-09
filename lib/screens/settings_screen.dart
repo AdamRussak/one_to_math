@@ -34,6 +34,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: AppTitleWidget(),
       ),
       body: Center(
+        heightFactor: 0.95,
         child: Column(
           children: [
             SizedBox(
