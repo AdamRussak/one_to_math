@@ -155,7 +155,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
           title: AppTitleWidget(),
         ),
         body: Center(
-          heightFactor: 0.8,
+          heightFactor: 0.9,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
