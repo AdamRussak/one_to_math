@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:one_to_math/const_enums.dart';
 import 'package:one_to_math/engine/settings_brain.dart';
+import 'package:one_to_math/screens/help_screen.dart';
 import 'package:one_to_math/screens/math_qustions.dart';
 import 'package:one_to_math/screens/multiply_qustions.dart';
 import 'package:one_to_math/screens/settings_screen.dart';
@@ -25,6 +26,7 @@ class _MathStartScreen extends State<MathStartScreen>
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -40,17 +42,37 @@ class _MathStartScreen extends State<MathStartScreen>
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 IconButton(
-                    tooltip: "Settings",
                     iconSize: 50.0,
-                    icon: Icon(FontAwesomeIcons.wrench),
+                    icon: Icon(
+                      FontAwesomeIcons.questionCircle,
+                      color: Colors.blue[300],
+                    ),
                     onPressed: () {
-                      Navigator.pushNamed(context, SettingsScreen.id);
+                      Navigator.pushNamed(context, HelpScreen.id);
                     }),
+                SizedBox(
+                  width: size.width * 0.25,
+                ),
+                Column(
+                  children: [
+                    IconButton(
+                        tooltip: "Settings",
+                        iconSize: 50.0,
+                        color: Colors.blue[300],
+                        icon: Icon(FontAwesomeIcons.wrench),
+                        onPressed: () {
+                          Navigator.pushNamed(context, SettingsScreen.id);
+                        }),
+                    Text(
+                      'הגדרות',
+                      style: TextStyle(color: Colors.blue[300]),
+                    ),
+                  ],
+                ),
                 SizedBox(
                   width: 30.0,
                 ),
               ]),
-              Text('הגדרות'),
               SizedBox(
                 height: 60.0,
               ),

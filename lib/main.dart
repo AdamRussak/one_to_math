@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_to_math/engine/math_brain.dart';
 import 'package:one_to_math/engine/settings_brain.dart';
+import 'package:one_to_math/screens/help_screen.dart';
 import 'package:one_to_math/screens/multiply_qustions.dart';
 import 'package:one_to_math/screens/settings_screen.dart';
 import 'package:one_to_math/screens/who_is_bigger_screen.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
             MathQustions.id: (context) => MathQustions(),
             SettingsScreen.id: (context) => SettingsScreen(),
             WhoIsBiggerScreen.id: (context) => WhoIsBiggerScreen(),
+            HelpScreen.id: (context) => HelpScreen(),
           }),
     );
   }
