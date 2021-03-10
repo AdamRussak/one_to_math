@@ -40,6 +40,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
     });
   }
 
+//TODO: set boolian to set if devide or multy
   void checkAnsewr(int userAnswer, bool checkInput) {
     if (userAnswer ==
             Provider.of<MathBrain>(context, listen: false).multyResult &&
@@ -151,6 +152,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
     tapIntoSavedInfo();
   }
 
+//TODO: set task to recive both multy and devide
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     // Height (without SafeArea)

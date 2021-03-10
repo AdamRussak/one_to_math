@@ -11,6 +11,7 @@ class HelpScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          //TODO: finish writing all the help tasks
           Text('הגדרות'),
           Text('חיבור וחיסור'),
           Text('גדול או קטן'),

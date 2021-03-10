@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,6 +18,7 @@ class MathBrain extends ChangeNotifier {
   var lessOrMoreAnswer;
   var lessOrMoreAnswerIcon;
   var multyResult;
+  var devideResult;
 //set qustion's Max
   void setQustionMax(int newMax) {
     maxNumber = newMax;
@@ -75,15 +77,11 @@ class MathBrain extends ChangeNotifier {
   //update Last result var
   void updateLastResult(int lastReult) {
     lastRandomNumber1 = lastReult;
-    print(lastRandomNumber1);
     notifyListeners();
   }
 
-  //random number for + - qustions
+  //random number for Multiply qustions
   void getMultiplyRandomInt() {
-    // randomNumber1 = random.nextInt(maxNumber);
-    // randomNumber2 = random.nextInt(maxNumber);
-    // multyResult = randomNumber1 * randomNumber2;
     do {
       randomNumber1 = random.nextInt(maxNumber);
       randomNumber2 = random.nextInt(maxNumber);
@@ -91,6 +89,19 @@ class MathBrain extends ChangeNotifier {
     } while (multyResult >= maxNumber ||
         multyResult == 0 ||
         randomNumber1 == lastRandomNumber1);
+    updateLastResult(randomNumber1);
+    notifyListeners();
+  }
+
+//TODO: set a new boolian to decide if devide or multy
+//TODO: set a new func to run multy or devide according to boolian
+  //random number for devide qustions
+  void geDevideRandomInt() {
+    do {
+      randomNumber1 = random.nextInt(maxNumber);
+      randomNumber2 = random.nextInt(randomNumber1);
+      devideResult = randomNumber1 / randomNumber2;
+    } while (devideResult % 1 != 0 || randomNumber1 == lastRandomNumber1);
     updateLastResult(randomNumber1);
     notifyListeners();
   }
@@ -119,25 +130,27 @@ class MathBrain extends ChangeNotifier {
 
   //random number for less or equal qustions
   void getRandomLessOrMoreInt() {
-    randomNumber1 = random.nextInt(maxNumber);
-    randomNumber2 = random.nextInt(maxNumber);
+    do {
+      randomNumber1 = random.nextInt(maxNumber);
+      randomNumber2 = random.nextInt(maxNumber);
+    } while (randomNumber1 == lastRandomNumber1);
+    updateLastResult(randomNumber1);
     notifyListeners();
   }
 
   void getLessOrMoreResult() {
-    do {
-      if (randomNumber1 > randomNumber2) {
-        lessOrMoreAnswer = Answer.left;
-        lessOrMoreAnswerIcon = Icon(FontAwesomeIcons.greaterThan);
-      } else if (randomNumber1 < randomNumber2) {
-        lessOrMoreAnswer = Answer.right;
-        lessOrMoreAnswerIcon = Icon(FontAwesomeIcons.lessThan);
-      } else {
-        lessOrMoreAnswer = Answer.equal;
-        lessOrMoreAnswerIcon = Icon(FontAwesomeIcons.equals);
-      }
-    } while (randomNumber1 == lastRandomNumber1);
-    updateLastResult(randomNumber1);
+    if (randomNumber1 > randomNumber2) {
+      lessOrMoreAnswer = Answer.left;
+      lessOrMoreAnswerIcon = Icon(FontAwesomeIcons.greaterThan);
+    } else if (randomNumber1 < randomNumber2) {
+      lessOrMoreAnswer = Answer.right;
+      lessOrMoreAnswerIcon = Icon(FontAwesomeIcons.lessThan);
+    } else {
+      lessOrMoreAnswer = Answer.equal;
+      lessOrMoreAnswerIcon = Icon(FontAwesomeIcons.equals);
+    }
+    //
+
     notifyListeners();
   }
 
