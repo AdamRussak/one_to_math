@@ -151,7 +151,6 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
     tapIntoSavedInfo();
   }
 
-//TODO: set task to recive both multy and devide
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     // Height (without SafeArea)

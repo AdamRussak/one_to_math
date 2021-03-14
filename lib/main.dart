@@ -13,8 +13,9 @@ import 'screens/start_screen.dart';
 
 void main() => runApp(MyApp());
 
-//TODO: start new option for cunting qustions
-//TODO: set a page with few tasks
+//TODO: start new option for total cunting qustions
+//TODO: set a page with few missions ( 10,20,50 qustions task // time test: 5, 10, 15 minuts test)
+//TODO: create top score page
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
