@@ -40,7 +40,6 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
     });
   }
 
-//TODO: set boolian to set if devide or multy
   void checkAnsewr(int userAnswer, bool checkInput) {
     if (userAnswer ==
             Provider.of<MathBrain>(context, listen: false).multyResult &&
@@ -66,7 +65,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
             onPressed: () {
               Navigator.pop(context);
               Provider.of<MathBrain>(context, listen: false)
-                  .getMultiplyRandomInt();
+                  .getMultyOrDevideQustion();
               setState(() {
                 userInput = false;
                 userAnswer = null;
@@ -132,7 +131,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
           onPressed: () {
             Navigator.pop(context);
             Provider.of<MathBrain>(context, listen: false)
-                .getMultiplyRandomInt();
+                .getMultyOrDevideQustion();
             setState(() {
               scoreKeeper = 0;
               savedInfo.saveDataToPrefs(scoreKeeper, 'prefMultyCount');
@@ -231,7 +230,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                       AppIconButtons(
                         presWidget: () {
                           print('new qustion');
-                          mathModel.getMultiplyRandomInt();
+                          mathModel.getMultyOrDevideQustion();
                         },
                         buttonIcon: KNewQustionIcon,
                         iconColors: Colors.blue,
@@ -249,10 +248,15 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                       style: KmathStyle,
                     ),
                     KSizeBoxMath10,
-                    Icon(
-                      FontAwesomeIcons.times,
-                      size: 45.0,
-                    ),
+                    mathModel.randomMultyBoolean
+                        ? Icon(
+                            FontAwesomeIcons.times,
+                            size: 45.0,
+                          )
+                        : Icon(
+                            FontAwesomeIcons.divide,
+                            size: 45.0,
+                          ),
                     KSizeBoxMath10,
                     Text(
                       mathModel.randomNumber2 != null

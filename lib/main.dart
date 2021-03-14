@@ -13,8 +13,9 @@ import 'screens/start_screen.dart';
 
 void main() => runApp(MyApp());
 
+//TODO: start new option for cunting qustions
+//TODO: set a page with few tasks
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

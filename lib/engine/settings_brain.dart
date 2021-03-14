@@ -13,6 +13,7 @@ class SettingsBrain extends ChangeNotifier {
 
   void setStartString(String prefKey) async {
     await savedInfo.initSharedPrefs();
+
     _enumString = savedInfo.prefs.getString(prefKey) != null
         ? savedInfo.prefs.getString(prefKey)
         : "gairl";

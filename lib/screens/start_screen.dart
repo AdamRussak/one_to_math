@@ -41,15 +41,18 @@ class _MathStartScreen extends State<MathStartScreen>
                 height: 60.0,
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                IconButton(
-                    iconSize: 50.0,
-                    icon: Icon(
-                      FontAwesomeIcons.questionCircle,
-                      color: Colors.blue[300],
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, HelpScreen.id);
-                    }),
+                Column(children: [
+                  IconButton(
+                      iconSize: 50.0,
+                      icon: Icon(
+                        FontAwesomeIcons.questionCircle,
+                        color: Colors.blue[300],
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, HelpScreen.id);
+                      }),
+                  Text("עזרה", style: TextStyle(color: Colors.blue[300]))
+                ]),
                 SizedBox(
                   width: size.width * 0.25,
                 ),

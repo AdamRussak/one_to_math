@@ -15,10 +15,10 @@ class MathBrain extends ChangeNotifier {
   int randomNumber2;
   int questionResult;
   bool randomMathBoolean = true;
+  bool randomMultyBoolean = true;
   var lessOrMoreAnswer;
   var lessOrMoreAnswerIcon;
   var multyResult;
-  var devideResult;
 //set qustion's Max
   void setQustionMax(int newMax) {
     maxNumber = newMax;
@@ -53,6 +53,17 @@ class MathBrain extends ChangeNotifier {
     getMathRandomBool();
     getMathRandomInt();
     getMathResult();
+    notifyListeners();
+  }
+
+//new Multy or devide Question
+  void getMultyOrDevideQustion() {
+    getMultyRandomBool();
+    if (randomMultyBoolean == true) {
+      getMultiplyRandomInt();
+    } else {
+      geDevideRandomInt();
+    }
     notifyListeners();
   }
 
@@ -93,22 +104,31 @@ class MathBrain extends ChangeNotifier {
     notifyListeners();
   }
 
-//TODO: set a new boolian to decide if devide or multy
-//TODO: set a new func to run multy or devide according to boolian
   //random number for devide qustions
   void geDevideRandomInt() {
     do {
       randomNumber1 = random.nextInt(maxNumber);
-      randomNumber2 = random.nextInt(randomNumber1);
-      devideResult = randomNumber1 / randomNumber2;
-    } while (devideResult % 1 != 0 || randomNumber1 == lastRandomNumber1);
+      randomNumber2 = random.nextInt(maxNumber);
+      while (randomNumber1 <= 0 || randomNumber1 < randomNumber2) {
+        randomNumber1 = random.nextInt(maxNumber);
+        randomNumber2 = random.nextInt(randomNumber1);
+      }
+      multyResult = randomNumber1 / randomNumber2;
+    } while (multyResult % 1 != 0 || randomNumber1 == lastRandomNumber1);
+    multyResult = (randomNumber1 / randomNumber2).round();
     updateLastResult(randomNumber1);
     notifyListeners();
   }
 
-  // random Bool
+  // random Bool for math qustions
   void getMathRandomBool() {
     randomMathBoolean = random.nextBool();
+    notifyListeners();
+  }
+
+  // random Bool for Multy and devide qustions
+  void getMultyRandomBool() {
+    randomMultyBoolean = random.nextBool();
     notifyListeners();
   }
 
