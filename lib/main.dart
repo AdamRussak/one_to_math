@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_to_math/engine/math_brain.dart';
 import 'package:one_to_math/engine/settings_brain.dart';
+import 'package:one_to_math/screens/help_screen.dart';
 import 'package:one_to_math/screens/multiply_qustions.dart';
 import 'package:one_to_math/screens/settings_screen.dart';
 import 'package:one_to_math/screens/who_is_bigger_screen.dart';
@@ -12,8 +13,10 @@ import 'screens/start_screen.dart';
 
 void main() => runApp(MyApp());
 
+//TODO: start new option for total cunting qustions
+//TODO: set a page with few missions ( 10,20,50 qustions task // time test: 5, 10, 15 minuts test)
+//TODO: create top score page
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -32,6 +35,7 @@ class MyApp extends StatelessWidget {
             MathQustions.id: (context) => MathQustions(),
             SettingsScreen.id: (context) => SettingsScreen(),
             WhoIsBiggerScreen.id: (context) => WhoIsBiggerScreen(),
+            HelpScreen.id: (context) => HelpScreen(),
           }),
     );
   }

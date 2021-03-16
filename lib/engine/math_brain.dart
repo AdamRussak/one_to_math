@@ -10,9 +10,11 @@ class MathBrain extends ChangeNotifier {
   Random random = Random();
   int maxNumber = 10;
   int randomNumber1;
+  int lastRandomNumber1;
   int randomNumber2;
   int questionResult;
   bool randomMathBoolean = true;
+  bool randomMultyBoolean = true;
   var lessOrMoreAnswer;
   var lessOrMoreAnswerIcon;
   var multyResult;
@@ -53,34 +55,79 @@ class MathBrain extends ChangeNotifier {
     notifyListeners();
   }
 
-  //random number for + - qustions
-  void getMathRandomInt() {
-    if (randomMathBoolean) {
-      randomNumber1 = random.nextInt(maxNumber);
-      randomNumber2 = random.nextInt(maxNumber - randomNumber1);
+//new Multy or devide Question
+  void getMultyOrDevideQustion() {
+    getMultyRandomBool();
+    if (randomMultyBoolean == true) {
+      getMultiplyRandomInt();
     } else {
-      randomNumber1 = random.nextInt(maxNumber);
-      randomNumber2 = randomNumber1 == 0 ? 0 : random.nextInt(randomNumber1);
+      geDevideRandomInt();
     }
     notifyListeners();
   }
 
   //random number for + - qustions
+  void getMathRandomInt() {
+    lastRandomNumber1 = lastRandomNumber1 == null ? 0 : lastRandomNumber1;
+    if (randomMathBoolean) {
+      do {
+        randomNumber1 = random.nextInt(maxNumber);
+        randomNumber2 = random.nextInt(maxNumber - randomNumber1);
+      } while (lastRandomNumber1 == randomNumber1);
+    } else {
+      do {
+        randomNumber1 = random.nextInt(maxNumber);
+        randomNumber2 = randomNumber1 == 0 ? 0 : random.nextInt(randomNumber1);
+      } while (lastRandomNumber1 == randomNumber1);
+    }
+    updateLastResult(randomNumber1);
+    notifyListeners();
+  }
+
+  //update Last result var
+  void updateLastResult(int lastReult) {
+    lastRandomNumber1 = lastReult;
+    notifyListeners();
+  }
+
+  //random number for Multiply qustions
   void getMultiplyRandomInt() {
-    randomNumber1 = random.nextInt(maxNumber);
-    randomNumber2 = random.nextInt(maxNumber);
-    multyResult = randomNumber1 * randomNumber2;
-    while (multyResult >= maxNumber || multyResult == 0) {
+    do {
       randomNumber1 = random.nextInt(maxNumber);
       randomNumber2 = random.nextInt(maxNumber);
       multyResult = randomNumber1 * randomNumber2;
-    }
+    } while (multyResult >= maxNumber ||
+        multyResult == 0 ||
+        randomNumber1 == lastRandomNumber1);
+    updateLastResult(randomNumber1);
     notifyListeners();
   }
 
-  // random Bool
+  //random number for devide qustions
+  void geDevideRandomInt() {
+    do {
+      randomNumber1 = random.nextInt(maxNumber);
+      randomNumber2 = random.nextInt(maxNumber);
+      while (randomNumber1 <= 0 || randomNumber1 < randomNumber2) {
+        randomNumber1 = random.nextInt(maxNumber);
+        randomNumber2 = random.nextInt(randomNumber1);
+      }
+      multyResult = randomNumber1 / randomNumber2;
+    } while (multyResult % 1 != 0 || randomNumber1 == lastRandomNumber1);
+    multyResult = (randomNumber1 / randomNumber2).round();
+    updateLastResult(randomNumber1);
+    notifyListeners();
+  }
+
+  // random Bool for math qustions
   void getMathRandomBool() {
     randomMathBoolean = random.nextBool();
+    notifyListeners();
+  }
+
+  // random Bool for Multy and devide qustions
+  void getMultyRandomBool() {
+    randomMultyBoolean = random.nextBool();
     notifyListeners();
   }
 
@@ -102,8 +149,11 @@ class MathBrain extends ChangeNotifier {
 
   //random number for less or equal qustions
   void getRandomLessOrMoreInt() {
-    randomNumber1 = random.nextInt(maxNumber);
-    randomNumber2 = random.nextInt(maxNumber);
+    do {
+      randomNumber1 = random.nextInt(maxNumber);
+      randomNumber2 = random.nextInt(maxNumber);
+    } while (randomNumber1 == lastRandomNumber1);
+    updateLastResult(randomNumber1);
     notifyListeners();
   }
 
@@ -118,6 +168,8 @@ class MathBrain extends ChangeNotifier {
       lessOrMoreAnswer = Answer.equal;
       lessOrMoreAnswerIcon = Icon(FontAwesomeIcons.equals);
     }
+    //
+
     notifyListeners();
   }
 

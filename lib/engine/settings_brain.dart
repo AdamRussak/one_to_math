@@ -6,12 +6,14 @@ class SettingsBrain extends ChangeNotifier {
   SavedInfo savedInfo = SavedInfo();
   int maxNumber = 10;
   String userName = "עומר";
+  bool userDefault;
   String genderLurning = "לומדת";
   String _enumString;
   var kidsGender = KidsGender.gairl;
 
   void setStartString(String prefKey) async {
     await savedInfo.initSharedPrefs();
+
     _enumString = savedInfo.prefs.getString(prefKey) != null
         ? savedInfo.prefs.getString(prefKey)
         : "gairl";
@@ -58,10 +60,5 @@ class SettingsBrain extends ChangeNotifier {
         : "עומר";
     print(userName);
     notifyListeners();
-  }
-
-  String getuser() {
-    loadSavedString('prefUserName');
-    return userName;
   }
 }

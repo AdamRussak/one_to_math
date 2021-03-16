@@ -142,6 +142,11 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
   }
 
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    // Height (without SafeArea)
+    double height1 = size.height -
+        MediaQuery.of(context).padding.top -
+        MediaQuery.of(context).padding.bottom;
     return Consumer<MathBrain>(builder: (context, mathBrain, child) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -150,6 +155,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
           title: AppTitleWidget(),
         ),
         body: Center(
+          heightFactor: 0.9,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -157,28 +163,25 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: 30.0,
+                    width: size.width * 0.05,
                   ),
                   AppIconButtons(
                     presWidget: () {
                       Navigator.pop(context);
                     },
-                    buttonIcon: Icon(
-                      FontAwesomeIcons.backspace,
-                      size: 45.0,
-                    ),
-                    iconColors: Colors.green[400],
+                    buttonIcon: KPopIcon,
+                    iconColors: Colors.red[300],
                   ),
                 ],
               ),
               SizedBox(
-                height: 40.0,
+                height: height1 * 0.05,
               ),
               ResultCounterWidget(
                 sucessInt: sucessInt == null ? 0 : sucessInt,
               ),
               SizedBox(
-                height: 30.0,
+                height: height1 * 0.05,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -197,7 +200,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                     iconColors: Colors.redAccent,
                   ),
                   SizedBox(
-                    width: 30.0,
+                    width: size.width * 0.05,
                   ),
                   AppIconButtons(
                     presWidget: mathBrain.getLessOrMoreQustion,
@@ -207,7 +210,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                 ],
               ),
               SizedBox(
-                height: 50.0,
+                height: height1 * 0.05,
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Text(
@@ -217,7 +220,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                   style: KMoreOrLessTextStyle,
                 ),
                 SizedBox(
-                  width: 30.0,
+                  width: size.width * 0.05,
                 ),
                 Column(
                   children: [
@@ -235,7 +238,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                       },
                     ),
                     SizedBox(
-                      height: 15.0,
+                      height: height1 * 0.015,
                     ),
                     IconButton(
                       color: Colors.amber,
@@ -251,7 +254,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                       },
                     ),
                     SizedBox(
-                      height: 15.0,
+                      height: height1 * 0.015,
                     ),
                     IconButton(
                       color: Colors.indigoAccent,
@@ -269,7 +272,7 @@ class _WhoIsBiggerScreenState extends State<WhoIsBiggerScreen>
                   ],
                 ),
                 SizedBox(
-                  width: 30.0,
+                  width: size.width * 0.05,
                 ),
                 Text(
                   mathBrain.randomNumber2 != null

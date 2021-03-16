@@ -144,14 +144,29 @@ class _MyHomePageState extends State<MathQustions>
     ).show();
   }
 
+  var inputFieldNode;
   @override
   void initState() {
     super.initState();
     tapIntoSavedInfo();
+    inputFieldNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    inputFieldNode.dispose();
+    super.dispose();
   }
 
   Widget build(BuildContext context) {
-    return SafeArea(
+    var size = MediaQuery.of(context).size;
+    // Height (without SafeArea)
+    double height1 = size.height -
+        MediaQuery.of(context).padding.top -
+        MediaQuery.of(context).padding.bottom;
+    return Padding(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
@@ -166,28 +181,23 @@ class _MyHomePageState extends State<MathQustions>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        width: 30.0,
-                      ),
+                      SizedBox(width: size.width * 0.05),
                       AppIconButtons(
                         presWidget: () {
                           Navigator.pop(context);
                         },
-                        buttonIcon: Icon(
-                          FontAwesomeIcons.backspace,
-                          size: 45.0,
-                        ),
-                        iconColors: Colors.green,
+                        buttonIcon: KPopIcon,
+                        iconColors: Colors.red[300],
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 40.0,
+                    height: height1 * 0.025,
                   ),
                   ResultCounterWidget(
                       sucessInt: sucessInt == null ? 0 : sucessInt),
                   SizedBox(
-                    height: 30.0,
+                    height: height1 * 0.05,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -219,7 +229,7 @@ class _MyHomePageState extends State<MathQustions>
                         iconColors: Colors.green,
                       ),
                       SizedBox(
-                        width: 20.0,
+                        width: size.width * 0.1,
                       ),
                       AppIconButtons(
                         presWidget: () {
@@ -232,7 +242,7 @@ class _MyHomePageState extends State<MathQustions>
                     ],
                   ),
                   SizedBox(
-                    height: 50.0,
+                    height: height1 * 0.05,
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Text(
@@ -257,8 +267,9 @@ class _MyHomePageState extends State<MathQustions>
                     Icon(FontAwesomeIcons.equals),
                     KSizeBoxMath10,
                     SizedBox(
-                      width: 65,
+                      width: size.width * 0.2,
                       child: TextField(
+                        autofocus: true,
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly
                         ],
@@ -304,7 +315,7 @@ class _MyHomePageState extends State<MathQustions>
                     ),
                   ]),
                   SizedBox(
-                    height: 150.0,
+                    height: height1 * 0.1,
                   ),
                 ],
               );
@@ -315,6 +326,7 @@ class _MyHomePageState extends State<MathQustions>
 
   @override
   void afterFirstLayout(BuildContext context) {
+    print(MediaQuery.of(context).size);
     // Calling the same function "after layout" to resolve the issue.
     Provider.of<MathBrain>(context, listen: false)
         .loadSavedInt(KMaxInt, MathTask.math);

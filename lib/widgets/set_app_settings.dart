@@ -40,7 +40,7 @@ class SetAppSettings extends StatelessWidget {
           size: 40.0,
         ),
         SizedBox(
-          height: 10.0,
+          height: MediaQuery.of(context).size.height * 0.015,
         ),
         Text(
           buttonText,

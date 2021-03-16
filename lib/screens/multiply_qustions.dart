@@ -65,7 +65,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
             onPressed: () {
               Navigator.pop(context);
               Provider.of<MathBrain>(context, listen: false)
-                  .getMultiplyRandomInt();
+                  .getMultyOrDevideQustion();
               setState(() {
                 userInput = false;
                 userAnswer = null;
@@ -131,7 +131,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
           onPressed: () {
             Navigator.pop(context);
             Provider.of<MathBrain>(context, listen: false)
-                .getMultiplyRandomInt();
+                .getMultyOrDevideQustion();
             setState(() {
               scoreKeeper = 0;
               savedInfo.saveDataToPrefs(scoreKeeper, 'prefMultyCount');
@@ -152,7 +152,14 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
   }
 
   Widget build(BuildContext context) {
-    return SafeArea(
+    var size = MediaQuery.of(context).size;
+    // Height (without SafeArea)
+    double height1 = size.height -
+        MediaQuery.of(context).padding.top -
+        MediaQuery.of(context).padding.bottom;
+    return Padding(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
@@ -168,27 +175,24 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 30.0,
+                        width: size.width * 0.05,
                       ),
                       AppIconButtons(
                         presWidget: () {
                           Navigator.pop(context);
                         },
-                        buttonIcon: Icon(
-                          FontAwesomeIcons.backspace,
-                          size: 45.0,
-                        ),
-                        iconColors: Colors.green[400],
+                        buttonIcon: KPopIcon,
+                        iconColors: Colors.red[300],
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 40.0,
+                    height: height1 * 0.025,
                   ),
                   ResultCounterWidget(
                       sucessInt: sucessInt == null ? 0 : sucessInt),
                   SizedBox(
-                    height: 30.0,
+                    height: height1 * 0.05,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -220,12 +224,12 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                         iconColors: Colors.green[400],
                       ),
                       SizedBox(
-                        width: 20.0,
+                        width: size.width * 0.05,
                       ),
                       AppIconButtons(
                         presWidget: () {
                           print('new qustion');
-                          mathModel.getMultiplyRandomInt();
+                          mathModel.getMultyOrDevideQustion();
                         },
                         buttonIcon: KNewQustionIcon,
                         iconColors: Colors.blue,
@@ -233,7 +237,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                     ],
                   ),
                   SizedBox(
-                    height: 50.0,
+                    height: height1 * 0.05,
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Text(
@@ -243,10 +247,15 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                       style: KmathStyle,
                     ),
                     KSizeBoxMath10,
-                    Icon(
-                      FontAwesomeIcons.times,
-                      size: 45.0,
-                    ),
+                    mathModel.randomMultyBoolean
+                        ? Icon(
+                            FontAwesomeIcons.times,
+                            size: 45.0,
+                          )
+                        : Icon(
+                            FontAwesomeIcons.divide,
+                            size: 45.0,
+                          ),
                     KSizeBoxMath10,
                     Text(
                       mathModel.randomNumber2 != null
@@ -258,8 +267,9 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                     Icon(FontAwesomeIcons.equals),
                     KSizeBoxMath10,
                     SizedBox(
-                      width: 65,
+                      width: size.width * 0.15,
                       child: TextField(
+                        autofocus: true,
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly
                         ],
@@ -294,10 +304,7 @@ class _MultiplyQustionsState extends State<MultiplyQustions>
                     ),
                   ]),
                   SizedBox(
-                    height: 50.0,
-                  ),
-                  SizedBox(
-                    height: 150.0,
+                    height: height1 * 0.05,
                   ),
                 ],
               );

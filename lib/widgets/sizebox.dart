@@ -9,11 +9,14 @@ class ButtonIcons extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Container(
-        constraints: BoxConstraints.tight(Size(100.0, 30.0)),
+        constraints: BoxConstraints.tight(Size(120.0, 60.0)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(sideA),
+            Icon(
+              sideA,
+              size: 35,
+            ),
             SizedBox(
               width: 10.0,
             ),
@@ -21,7 +24,10 @@ class ButtonIcons extends StatelessWidget {
             SizedBox(
               width: 10.0,
             ),
-            Icon(sideB)
+            Icon(
+              sideB,
+              size: 35,
+            )
           ],
         ),
       ),
